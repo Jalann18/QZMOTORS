@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QZ Motors - Inspección Automotriz Premium</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'landing/css/styles.css' %}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-car-front-fill me-2"></i>QZ<span class="fw-normal text-secondary">Motors</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1 text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#por-que">Por qué elegirnos</a>
+                    </li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a class="btn btn-brand btn-sm px-4 py-2 text-decoration-none d-inline-block"
+                            href="#agendar">Agenda Inmediata</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="hero-badge">
+                        <i class="bi bi-shield-check me-1"></i> Inspección a Domicilio
+                    </div>
+                    <h1>Conoce el estado real de tu próximo vehículo</h1>
+                    <p>Revisión técnica computarizada, estructural y legal en terreno. Compra con total seguridad y
+                        confianza con la revisión automotriz más completa.</p>
+                    <div class="d-flex flex-wrap gap-3 mt-4 animate-fade-up-1">
+                        <a href="#agendar" class="btn btn-brand">Solicitar Inspección <i
+                                class="bi bi-arrow-right ms-2"></i></a>
+                        <a href="#servicios" class="btn btn-details px-4 py-3 rounded-3 fw-semibold"><i
+                                class="bi bi-info-circle me-2"></i>Ver Detalles</a>
+                    </div>
+                    <div class="mt-5 d-flex align-items-center gap-4 text-secondary animate-fade-up-2">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-geo-alt-fill text-danger me-2 fs-5"></i>
+                            <span>Vamos a tu comuna</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-clock-fill text-warning me-2 fs-5"></i>
+                            <span>Atención Rápida</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="py-5 section-servicios">
+        <div class="container mb-5">
+            <div class="section-title text-center reveal-slide-up">
+                <h2>Servicios Especializados</h2>
+                <div class="accent-line"></div>
+                <p>Nuestra inspección de 150 puntos cubre absolutamente todo</p>
+            </div>
+
+            <div class="row g-4 mt-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up">
+                        <div class="icon-box">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+                        <h4>Scanner Automotriz</h4>
+                        <p>Lectura de computadores del vehículo (ECU). Detectamos códigos de error ocultos en Motor,
+                            Caja, Airbags, ABS, e inconsistencias en el kilometraje real.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up">
+                        <div class="icon-box">
+                            <i class="bi bi-tools"></i>
+                        </div>
+                        <h4>Revisión Estructural</h4>
+                        <p>Evaluación minuciosa de chasis, medición de espesor de pintura para detectar choques
+                            reparados o masilla, fugas de fluidos y estado de suspensión.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up">
+                        <div class="icon-box">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <h4>Análisis Legal Integral</h4>
+                        <p>Incluimos el certificado Autofact full: validamos dueños, estado de multas, SOAP, revisión
+                            técnica, encargo por robos, remates y prenda administrativa.</p>
+                    </div>
+                </div>
+
+                <!-- Nuevas adiciones: Kilometraje, VIN, Batería -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up">
+                        <div class="icon-box">
+                            <i class="bi bi-speedometer2"></i>
+                        </div>
+                        <h4>Validación de Kilometraje</h4>
+                        <p>En base a información dada por scanner e inspección visual de componentes de fricción.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up">
+                        <div class="icon-box">
+                            <i class="bi bi-upc-scan"></i>
+                        </div>
+                        <h4>Validación de VIN</h4>
+                        <p>Se valida mediante scanner, documentos y VIN físico en el chasis del vehículo.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up">
+                        <div class="icon-box">
+                            <i class="bi bi-battery-charging"></i>
+                        </div>
+                        <h4>Test de Batería</h4>
+                        <p>Evaluación del sistema eléctrico y batería, estado de carga, capacidad de arranque, diagnóstico del alternador y vida útil estimada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso -->
+    <section id="proceso" class="py-5">
+        <div class="container mb-5">
+            <div class="section-title text-center reveal-slide-up">
+                <div class="hero-badge mb-3"><i class="bi bi-gear-wide-connected me-2"></i>Metodología</div>
+                <h2>Nuestro Proceso de Inspección</h2>
+                <div class="accent-line"></div>
+                <p>Una revisión estandarizada, clara y directa para brindarte total certeza.</p>
+            </div>
+            
+            <div class="row g-4 mt-5 position-relative">
+                <div class="d-none d-md-block process-line"></div>
+                
+                <div class="col-md-4">
+                    <div class="glass-card reveal-slide-up text-center h-100 process-card-container">
+                        <div class="process-icon mb-4">1</div>
+                        <h4 class="fw-bold mb-3">Reserva Eficiente</h4>
+                        <p class="text-secondary mb-0">Agendamos a través del sitio web o vía telefónica. Define el lugar en la ciudad y la fecha. Nos adaptamos a los tiempos para agilizar tu compra.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="glass-card reveal-slide-up text-center h-100 process-card-container">
+                        <div class="process-icon mb-4">2</div>
+                        <h4 class="fw-bold mb-3">Revisión Técnico-Mecánica</h4>
+                        <p class="text-secondary mb-0">Evaluamos 150 puntos: test con escáner avanzado, condición del chasis, motor, transmisión, pintura y sistemas de inyección, en el lugar designado.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="glass-card reveal-slide-up text-center h-100 process-card-container">
+                        <div class="process-icon mb-4">3</div>
+                        <h4 class="fw-bold mb-3">Reporte Analítico</h4>
+                        <p class="text-secondary mb-0">El mismo día te proporcionamos un informe dictaminando el estado real del vehículo. Evitamos que te engañen y avalamos tu futura inversión.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Por Qué Elegirnos -->
+    <section id="por-que" class="py-5 bg-subtle-dark">
+        <div class="container mb-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <h2 class="display-6 fw-bold mb-4">¿Por qué elegir <span class="text-brand">QZ Motors</span>?</h2>
+                    <p class="text-secondary fs-5 mb-4">No dejes la compra de tu próximo auto al azar. Te ofrecemos la máxima seguridad, transparencia y profesionalismo en cada revisión pre-compra.</p>
+                    <ul class="list-unstyled text-secondary">
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2-circle text-brand fs-5 me-3"></i> Equipamiento de diagnóstico de última generación</li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2-circle text-brand fs-5 me-3"></i> Técnicos e ingenieros automotrices certificados</li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2-circle text-brand fs-5 me-3"></i> 100% de objetividad e imparcialidad en los datos</li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check2-circle text-brand fs-5 me-3"></i> Entrega de informe final el mismo día</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="glass-card reveal-slide-up text-center p-5">
+                        <i class="bi bi-shield-fill-check text-warning fs-1 mb-3"></i>
+                        <h3 class="fw-bold mb-3">Garantía de Confianza</h3>
+                        <p class="text-secondary mb-0">Nuestros clientes avalan la calidad de nuestras inspecciones. Hemos evitado la compra de cientos de vehículos con fallas ocultas, multas impagas o problemas legales graves, ahorrando tiempo y dinero a nuestros clientes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="agendar" class="booking-section">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5 pe-lg-5">
+                    <h2 class="display-5 fw-bold mb-4 tracking-tight">Agenda tu Inspección <span
+                            class="text-brand">Hoy</span></h2>
+                    <p class="fs-5 text-secondary mb-5">Completa el formulario y nos pondremos en contacto rápidamente
+                        para confirmar el día y lugar exacto de revisión.</p>
+
+                    <div class="d-flex align-items-center mb-4">
+                        <div
+                            class="bg-dark rounded-circle d-flex align-items-center justify-content-center border border-secondary contact-icon-box">
+                            <i class="bi bi-telephone text-white fs-5"></i>
+                        </div>
+                        <div class="ms-3">
+                            <div class="text-secondary small">¿Dudas Rápidas?</div>
+                            <div class="fw-bold fs-5 text-white">+56 9 1234 5678</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <div
+                            class="bg-dark rounded-circle d-flex align-items-center justify-content-center border border-secondary contact-icon-box">
+                            <i class="bi bi-whatsapp text-success fs-5"></i>
+                        </div>
+                        <div class="ms-3">
+                            <div class="text-secondary small">Escríbenos por WhatsApp</div>
+                            <a href="#" class="fw-bold fs-5 text-success text-decoration-none">Chat Directo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="booking-card reveal-slide-up">
+                        <div id="form-alert" class="alert d-none rounded-3 border-0 form-alert-shadow" role="alert">
+                        </div>
+
+                        <form id="citaForm">
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="nombre" placeholder="Nombre"
+                                            required>
+                                        <label for="nombre">Nombre Completo</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="tel" class="form-control" id="telefono" placeholder="+56 9..."
+                                            required>
+                                        <label for="telefono">Teléfono Celular</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="patente" placeholder="AAAA11"
+                                            required>
+                                        <label for="patente">Patente del Vehículo</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="comuna" placeholder="Las Condes"
+                                            required>
+                                        <label for="comuna">Comuna</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="date" class="form-control" id="fecha" placeholder="Fecha" required>
+                                <label for="fecha">Fecha Sugerida</label>
+                            </div>
+
+                            <button type="submit" class="btn btn-brand w-100 py-3 btn-submit-text" id="submitBtn">
+                                <i class="bi bi-lightning-charge-fill me-2 text-warning"></i> Confirmar Agenda Inmediata
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center text-md-start">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                        <i class="bi bi-car-front-fill me-2 fs-4 text-danger"></i>
+                        <span class="fs-5 fw-bold text-white">QZ Motors</span>
+                    </div>
+                    <p class="mt-2 small mb-0">Revisión pre-compra profesional. No te dejes engañar, nosotros te
+                        cuidamos.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="small mb-0">&copy; 2026 QZ Motors. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/56912345678?text=Hola,%20busco%20agenda%20inmediata" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat en WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <!-- Custom JS -->
+    <script src="{% static 'landing/js/scripts.js' %}"></script>
+</body>
+
+</html>
