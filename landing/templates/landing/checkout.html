@@ -1,0 +1,297 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QZ Motors - Checkout Seguro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="{% static 'landing/css/checkout.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <i class="bi bi-car-front-fill me-2"></i>QZ Motors
+            </a>
+            <div class="ms-auto">
+                <a class="btn btn-outline-light btn-sm px-4" href="{% url 'index' %}">Volver al inicio</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="checkout-section py-5 mt-5">
+        <div class="container mt-4">
+            <div class="row g-lg-5">
+
+                <!-- Left Column: Order Summary (Desktop Only) -->
+                <div class="col-lg-5 d-none d-lg-block">
+                    <div class="order-summary-card p-4 rounded-4 reveal-slide-up"
+                        style="background: rgba(15, 23, 42, 0.4); border: 1px solid var(--surface-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+
+                        <div class="text-center mb-4 pb-3 border-bottom border-secondary">
+                            <i class="bi bi-shield-lock-fill text-brand display-5 mb-2 d-inline-block"></i>
+                            <h4 class="fw-bold mt-2 lh-base summary-title" style="min-height: 50px;">Cargando plan...
+                            </h4>
+                            <h2 class="display-3 fw-bold text-brand mt-3 mb-0 summary-price">$0</h2>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="mb-4 mt-2">
+                            <div class="summary-features p-4 rounded-4"
+                                style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);">
+                                <!-- Injected JS Features -->
+                            </div>
+                        </div>
+
+                        <!-- Total -->
+                        <div
+                            class="d-flex justify-content-between align-items-center border-top border-secondary pt-4 mb-4">
+                            <span class="fs-4 fw-bold">Total a Pagar</span>
+                            <span class="fs-3 fw-bold text-brand summary-total">$0</span>
+                        </div>
+
+                        <!-- Trust Badge -->
+                        <div class="alert bg-warning bg-opacity-10 border-warning text-warning d-flex align-items-start mb-0"
+                            style="border-radius: 12px;">
+                            <i class="bi bi-info-circle-fill me-3 fs-5 mt-1"></i>
+                            <span class="small fw-medium">8 de cada 10 chilenos aseguran que se percataron de fallas
+                                graves en su auto usado solo después de comprarlo. Cómpralo seguro.</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Column: Form Wizard -->
+                <div class="col-lg-7">
+                    <div class="glass-checkout-card p-4 p-md-5 reveal-slide-up">
+
+                        <!-- STEP 1: Datos Personales -->
+                        <div id="step1">
+                            <div class="mb-4 text-center text-md-start">
+                                <h2 class="fw-bold display-6">¡Empecemos!</h2>
+                                <p class="text-secondary fs-5">Necesitamos algunos datos básicos. Solo tomará 30
+                                    segundos.</p>
+                            </div>
+
+                            <form id="formStep1">
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Email</label>
+                                        <input type="email" class="form-control custom-input" id="email"
+                                            placeholder="tu@email.com" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Nombre
+                                            completo</label>
+                                        <input type="text" class="form-control custom-input" id="nombre"
+                                            placeholder="Tu nombre completo" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">RUT</label>
+                                        <input type="text" class="form-control custom-input" id="rut"
+                                            placeholder="12.345.678-9" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Celular</label>
+                                        <input type="tel" class="form-control custom-input" id="telefono"
+                                            placeholder="+569XXXXXXXX" required>
+                                    </div>
+                                </div>
+                                <div class="mt-5">
+                                    <button type="button" class="btn btn-brand w-100 py-3 fs-5 fw-bold"
+                                        id="btnNext1">Continuar<i class="bi bi-arrow-right ms-2"></i></button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- STEP 2: Vehículo y Coordinación -->
+                        <div id="step2" style="display: none;">
+                            <form id="formStep2">
+                                <div class="mb-4">
+                                    <h4 class="fw-bold d-flex align-items-center"><i
+                                            class="bi bi-geo-alt-fill text-brand me-2"></i> ¿Dónde está el vehículo?
+                                    </h4>
+                                    <p class="text-secondary small">Esto nos ayuda a coordinar nuestro inspector en
+                                        terreno.</p>
+                                </div>
+                                <div class="row g-3 mb-5">
+                                    <div class="col-12">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Región</label>
+                                        <input type="text" class="form-control custom-input text-secondary"
+                                            value="Región Metropolitana de Santiago" disabled>
+                                    </div>
+                                    <div class="col-12 position-relative">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Comuna</label>
+                                        <div class="dropdown">
+                                            <button
+                                                class="btn w-100 text-start d-flex justify-content-between align-items-center custom-input"
+                                                type="button" id="comunaDropdown" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <span id="comunaSelectedText"
+                                                    style="color: rgba(255,255,255,0.3);">Selecciona tu comuna (Solo
+                                                    RM)</span>
+                                                <i class="bi bi-chevron-down text-secondary"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-dark w-100 shadow-lg border-secondary border-opacity-25 p-2 custom-scrollbar"
+                                                aria-labelledby="comunaDropdown"
+                                                style="max-height: 250px; overflow-y: auto; background-color: #18181b;"
+                                                id="comunaDropdownMenu">
+                                                <!-- Injected via JS -->
+                                            </ul>
+                                        </div>
+                                        <input type="text" id="comuna" required
+                                            style="position: absolute; bottom: 10px; left: 10px; opacity: 0; width: 1px; height: 1px; pointer-events: none;"
+                                            tabindex="-1">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Dirección
+                                            exacta</label>
+                                        <input type="text" class="form-control custom-input" id="direccion"
+                                            placeholder="Ej: Av Providencia 1234" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 pt-3 border-top border-secondary">
+                                    <h4 class="fw-bold d-flex align-items-center"><i
+                                            class="bi bi-car-front-fill text-brand me-2"></i> Datos del vehículo</h4>
+                                </div>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Patente</label>
+                                        <input type="text"
+                                            class="form-control custom-input bg-dark text-white fw-bold text-center fs-5 text-uppercase"
+                                            id="patente" placeholder="AAAA11" required maxlength="6"
+                                            style="letter-spacing: 2px;">
+                                        <div class="invalid-feedback">Formato inválido (Ej: AB1234 o ABCD12)</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Año</label>
+                                        <input type="number" class="form-control custom-input" id="anio"
+                                            placeholder="Ej: 2020" min="1990" max="2026" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Marca</label>
+                                        <input type="text" class="form-control custom-input" id="marca"
+                                            placeholder="Ej: Kia" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label text-secondary fw-semibold small mb-1">Modelo</label>
+                                        <input type="text" class="form-control custom-input" id="modelo"
+                                            placeholder="Ej: Soluto" required>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-12 mt-3 pt-3 border-top border-secondary">
+                                        <label class="form-label text-secondary fw-semibold small mb-2">Fecha y Hora de
+                                            Inspección</label>
+                                        <input type="date" class="form-control custom-input text-secondary mb-3"
+                                            id="fecha" required>
+
+                                        <div id="timeSlotsContainer" class="d-none animate-fade-up-1">
+                                            <label
+                                                class="form-label text-secondary fw-semibold small mb-2 d-flex align-items-center"><i
+                                                    class="bi bi-clock-history text-brand me-2"></i> Horarios
+                                                Disponibles</label>
+                                            <div class="d-grid gap-2 mb-2"
+                                                style="grid-template-columns: repeat(3, 1fr);" id="timeSlotsGrid">
+                                                <!-- Dynamic JS Time Pills -->
+                                            </div>
+                                            <input type="text" id="hora" required
+                                                style="opacity: 0; width: 1px; height: 1px; position: absolute; pointer-events: none;"
+                                                tabindex="-1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <!-- Form Buttons -->
+                                    <div class="d-grid d-md-flex justify-content-md-between gap-3 mt-5">
+                                        <button type="button" class="btn btn-dark border border-secondary text-white px-md-4 py-3 rounded-3 order-3 order-md-1" id="btnBack">
+                                            <i class="bi bi-arrow-left me-2 d-none d-md-inline"></i> Volver
+                                        </button>
+                                        
+                                        <div class="d-grid d-md-flex gap-3 order-1 order-md-2">
+                                            <button type="submit" class="btn btn-outline-secondary text-white fw-bold px-4 py-3 rounded-3 order-2 order-md-1" id="btnCash" style="background: rgba(255,255,255,0.02);">
+                                                Pago Presencial <i class="bi bi-wallet2 ms-2 text-warning"></i>
+                                            </button>
+                                            <button type="submit" class="btn btn-brand text-white fw-bold px-md-5 py-3 rounded-3 shadow-lg order-1 order-md-2" id="submitBtn">
+                                                Pagar en Flow <i class="bi bi-shield-lock-fill ms-2"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Sticky Order Summary (d-lg-none) -->
+    <div class="fixed-bottom d-lg-none p-3 shadow-lg mobile-sticky-bar"
+        style="background: rgba(9, 9, 11, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--surface-border); z-index: 1040;">
+        <div class="d-flex justify-content-between align-items-center px-1" data-bs-toggle="offcanvas"
+            data-bs-target="#mobileSummaryOffcanvas" role="button">
+            <div>
+                <p class="text-secondary small fw-bold mb-0 summary-title" style="font-size: 0.8rem; line-height: 1.2;">
+                    Cargando...</p>
+                <h3 class="fw-bold text-brand mb-0 summary-total">$0</h3>
+            </div>
+            <div class="text-end d-flex align-items-center">
+                <span class="text-white fw-bold me-2" style="font-size: 0.95rem;">Más detalles</span>
+                <i class="bi bi-chevron-up text-brand fs-5"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Default Summary Offcanvas -->
+    <div class="offcanvas offcanvas-bottom bg-dark" tabindex="-1" id="mobileSummaryOffcanvas"
+        style="height: auto; max-height: 85vh;">
+        <div class="offcanvas-header border-bottom border-secondary border-opacity-25 pb-3">
+            <h5 class="offcanvas-title text-white fw-bold"><i class="bi bi-shield-lock-fill text-brand me-2"></i>
+                Resumen de Compra</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="text-center mb-4">
+                <h5 class="fw-bold mt-2 lh-base text-secondary summary-title">...</h5>
+                <h2 class="display-4 fw-bold text-brand mt-1 mb-0 summary-price">...</h2>
+            </div>
+
+            <div class="summary-features mb-4 p-3 rounded-4"
+                style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);">
+                <!-- Features injected here -->
+            </div>
+
+            <div class="alert bg-warning bg-opacity-10 border-warning text-warning d-flex align-items-start mb-4"
+                style="border-radius: 12px;">
+                <i class="bi bi-info-circle-fill me-3 fs-5 mt-1"></i>
+                <span class="small fw-medium">8 de cada 10 chilenos aseguran que se percataron de fallas graves en su
+                    auto usado solo después de comprarlo. Cómpralo seguro.</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 mt-5">
+        <div class="container">
+            <h4 class="fw-bold text-white mb-2">QZ Motors</h4>
+            <p class="small text-secondary mb-0">&copy; 2026 QZ Motors. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'landing/js/checkout.js' %}"></script>
+</body>
+
+</html>

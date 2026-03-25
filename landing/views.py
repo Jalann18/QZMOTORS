@@ -8,6 +8,9 @@ from datetime import datetime
 def index(request):
     return render(request, 'landing/index.html')
 
+def checkout(request):
+    return render(request, 'landing/checkout.html')
+
 @csrf_exempt
 def agendar_cita(request):
     if request.method == 'POST':
