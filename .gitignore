@@ -1,0 +1,22 @@
+*.py[cod]
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+media
+static
+staticfiles
+.env
+
+# Environments
+.venv
+env/
+venv/
+ENV/
+
+# VS Code
+.vscode/
+
+# Build
+dist/
+build/

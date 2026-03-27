@@ -238,33 +238,93 @@ document.addEventListener('DOMContentLoaded', () => {
         activeBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
 
         if(isCash) {
-            setTimeout(() => {
-                Swal.fire({
-                    title: '¡Reserva Confirmada!',
-                    text: 'Te hemos enviado un correo. El pago se realizará presencialmente el día de la inspección.',
-                    icon: 'success',
-                    confirmButtonColor: '#10b981',
-                    background: '#18181b',
-                    color: '#fff'
-                }).then(() => {
-                    activeBtn.disabled = false;
-                    activeBtn.innerHTML = originalText;
-                });
-            }, 1000);
+            // Fake or direct local flow for Cash (We ping the backend anyway to record the appointment)
+            const payload = {
+                payment_method: "presencial",
+                plan: plan,
+                email: document.getElementById('email').value,
+                nombre: document.getElementById('nombre').value,
+                rut: document.getElementById('rut').value,
+                telefono: document.getElementById('celular').value,
+                comuna: document.getElementById('comuna').value,
+                direccion: document.getElementById('direccion').value,
+                patente: document.getElementById('patente').value,
+                ano: document.getElementById('ano').value,
+                fecha: document.getElementById('fecha').value,
+                hora: document.getElementById('hora').value
+            };
+
+            fetch('/checkout/process/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    Swal.fire({
+                        title: '¡Reserva Confirmada!',
+                        text: 'Te hemos enviado un correo. El pago se realizará presencialmente el día de la inspección.',
+                        icon: 'success',
+                        confirmButtonColor: '#10b981',
+                        background: '#18181b',
+                        color: '#fff'
+                    }).then(() => {
+                        window.location.href = '/'; // Or a success page
+                    });
+                } else {
+                    Swal.fire('Error', data.error || 'No se pudo procesar la reserva', 'error');
+                }
+            })
+            .catch(err => Swal.fire('Error', 'Ocurrió un error inesperado', 'error'))
+            .finally(() => {
+                activeBtn.disabled = false;
+                activeBtn.innerHTML = originalText;
+            });
+            
         } else {
-            setTimeout(() => {
-                Swal.fire({
-                    title: '¡Redirigiendo a Flow!',
-                    text: 'Serás llevado al portal de pago seguro.',
-                    icon: 'success',
-                    confirmButtonColor: '#ff3c00',
-                    background: '#18181b',
-                    color: '#fff'
-                }).then(() => {
+            // Real Flow Flow
+            const payload = {
+                payment_method: "flow",
+                plan: plan,
+                email: document.getElementById('email').value,
+                nombre: document.getElementById('nombre').value,
+                rut: document.getElementById('rut').value,
+                telefono: document.getElementById('celular').value,
+                comuna: document.getElementById('comuna').value,
+                direccion: document.getElementById('direccion').value,
+                patente: document.getElementById('patente').value,
+                ano: document.getElementById('ano').value,
+                fecha: document.getElementById('fecha').value,
+                hora: document.getElementById('hora').value
+            };
+
+            fetch('/checkout/process/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success && data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    Swal.fire({
+                        title: 'Error al procesar pago',
+                        text: data.error || 'No pudimos conectar con Flow.',
+                        icon: 'error',
+                        background: '#18181b',
+                        color: '#fff'
+                    });
                     activeBtn.disabled = false;
                     activeBtn.innerHTML = originalText;
-                });
-            }, 1500);
+                }
+            })
+            .catch(err => {
+                Swal.fire('Error', 'No se pudo contactar al servidor.', 'error');
+                activeBtn.disabled = false;
+                activeBtn.innerHTML = originalText;
+            });
         }
     });
 });

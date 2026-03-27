@@ -1,7 +1,6 @@
-
 :root {
-    --brand-color: #ff3c00;
-    --brand-hover: #e03500;
+    --brand-color: #dc2626;
+    --brand-hover: #991b1b;
     --dark-bg: #09090b;
     --surface-color: rgba(255, 255, 255, 0.03);
     --surface-border: rgba(255, 255, 255, 0.08);
@@ -23,15 +22,24 @@ body {
     border-bottom: 1px solid var(--surface-border);
     padding: 15px 0;
 }
+
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--text-primary) !important;
 }
-.navbar-brand i { color: var(--brand-color); }
 
-.bg-brand { background-color: var(--brand-color) !important; }
-.text-brand { color: var(--brand-color) !important; }
+.navbar-brand i {
+    color: var(--brand-color);
+}
+
+.bg-brand {
+    background-color: var(--brand-color) !important;
+}
+
+.text-brand {
+    color: var(--brand-color) !important;
+}
 
 /* Checkout Card */
 .checkout-section {
@@ -49,7 +57,7 @@ body {
 }
 
 .order-summary {
-    background: rgba(0,0,0,0.2) !important;
+    background: rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Form Styles */
@@ -66,11 +74,11 @@ body {
 .custom-input:focus {
     background-color: rgba(255, 255, 255, 0.06) !important;
     border-color: var(--brand-color) !important;
-    box-shadow: 0 0 0 4px rgba(255, 60, 0, 0.1) !important;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1) !important;
 }
 
 .custom-input::placeholder {
-    color: rgba(255,255,255,0.3);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .form-select.custom-input {
@@ -82,6 +90,7 @@ body {
     color: var(--brand-color);
     border-color: var(--brand-color);
 }
+
 .btn-outline-brand:hover {
     background-color: var(--brand-color);
     color: white;
@@ -99,13 +108,13 @@ body {
     border-radius: 8px;
     font-weight: 600;
     transition: all 0.3s;
-    box-shadow: 0 10px 25px -5px rgba(255, 60, 0, 0.4);
+    box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.4);
 }
 
 .btn-brand:hover {
     background-color: var(--brand-hover);
     transform: translateY(-2px);
-    box-shadow: 0 15px 30px -5px rgba(255, 60, 0, 0.6);
+    box-shadow: 0 15px 30px -5px rgba(220, 38, 38, 0.6);
     color: white;
 }
 
@@ -114,8 +123,15 @@ body {
 }
 
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 footer {
@@ -129,21 +145,25 @@ footer {
     }
 }
 
-.custom-dropdown-item:hover, .custom-dropdown-item:focus {
-    background-color: rgba(255, 60, 0, 0.15) !important;
+.custom-dropdown-item:hover,
+.custom-dropdown-item:focus {
+    background-color: rgba(220, 38, 38, 0.15) !important;
     color: var(--brand-color) !important;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
 }
