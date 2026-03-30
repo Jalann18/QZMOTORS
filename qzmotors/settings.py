@@ -2,40 +2,45 @@ import os
 import dj_database_url
 from pathlib import Path
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ==========================================
-# SEGURIDAD REAL (Sin llaves bajo el limpiapiés)
+# 1. CONFIGURACIÓN DE ENTORNO (ORDEN CORREGIDO)
 # ==========================================
+
+# Definimos DEBUG primero para que la lógica de SECRET_KEY pueda usarlo
+DEBUG = os.environ.get('DEBUG', 'False').lower() in ['true', '1', 't']
 
 # Intentamos sacar la llave de Railway
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Si NO hay llave y NO estamos en modo debug, lanzamos un error crítico
+# Fail-safe para SECRET_KEY
 if not SECRET_KEY and not DEBUG:
     raise ValueError("ERROR CRÍTICO: La variable SECRET_KEY no está configurada en Railway.")
 
-# Si no hay llave pero estamos en local (DEBUG=True), usamos una de juguete
 if not SECRET_KEY:
     SECRET_KEY = 'django-insecure-dev-key-solo-para-entorno-local-2026'
-# DEBUG: Solo será True si tú lo pones explícitamente en Railway. 
-# En producción SIEMPRE debe ser False.
-DEBUG = os.environ.get('DEBUG', 'False').lower() in ['true', '1', 't']
 
-# ALLOWED_HOSTS: Agregamos el dominio de Railway al fallback por si acaso
-_hosts = os.environ.get('ALLOWED_HOSTS', 'qzmotors.cl,www.qzmotors.cl,web-production-0711f.up.railway.app,localhost')
+# ==========================================
+# 2. SEGURIDAD Y RED (ALLOWED HOSTS & CSRF)
+# ==========================================
+
+# Hosts permitidos con fallbacks para evitar el Error 400
+_hosts = os.environ.get('ALLOWED_HOSTS', 'qzmotors.cl,www.qzmotors.cl,web-production-0711f.up.railway.app,localhost,127.0.0.1')
 ALLOWED_HOSTS = [h.strip() for h in _hosts.split(',') if h.strip()]
 
-# CSRF: Lo mismo aquí
+# Orígenes confiables para CSRF (Necesario para formularios tras Cloudflare)
 _csrf = os.environ.get('CSRF_TRUSTED_ORIGINS', 'https://qzmotors.cl,https://www.qzmotors.cl,https://web-production-0711f.up.railway.app')
 CSRF_TRUSTED_ORIGINS = [o.strip() for o in _csrf.split(',') if o.strip()]
+
 # Configuración de Proxy (Vital para Railway + Cloudflare)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
 
 # ==========================================
-# APLICACIONES Y MIDDLEWARE
+# 3. DEFINICIÓN DE APLICACIONES Y MIDDLEWARE
 # ==========================================
 
 INSTALLED_APPS = [
@@ -50,7 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Debe estar aquí para los estáticos
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,7 +84,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'qzmotors.wsgi.application'
 
 # ==========================================
-# BASE DE DATOS Y ESTÁTICOS
+# 4. BASE DE DATOS Y ARCHIVOS ESTÁTICOS
 # ==========================================
 
 DATABASES = {
@@ -92,11 +97,16 @@ DATABASES = {
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Configuración de WhiteNoise optimizada para producción
 STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+# ==========================================
+# 5. INTERNACIONALIZACIÓN Y OTROS
+# ==========================================
 
 LANGUAGE_CODE = 'es-cl'
 TIME_ZONE = 'America/Santiago'
