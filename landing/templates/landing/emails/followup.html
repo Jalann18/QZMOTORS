@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Cómo estuvo tu inspección? — QZ Motors</title>
+<style>
+  body { margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Arial, sans-serif; }
+  .wrapper { max-width: 600px; margin: 32px auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  .header { background: linear-gradient(135deg, #09090b 0%, #18181b 100%); padding: 40px 40px 32px; text-align: center; }
+  .header-logo { font-size: 1.6rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; }
+  .header-logo span { color: #dc2626; }
+  .badge { display: inline-block; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); color: #059669; border-radius: 50px; padding: 6px 16px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-top: 16px; }
+  .body { padding: 40px; }
+  .greeting { font-size: 1.4rem; font-weight: 700; color: #09090b; margin-bottom: 8px; }
+  .subtitle { color: #71717a; font-size: 1rem; margin-bottom: 32px; line-height: 1.6; }
+  .stars { text-align: center; font-size: 2.5rem; margin-bottom: 8px; }
+  .stars-label { text-align: center; color: #71717a; font-size: 0.9rem; margin-bottom: 32px; }
+  .cta-block { margin-bottom: 32px; }
+  .cta-title { font-weight: 700; color: #09090b; font-size: 1.1rem; margin-bottom: 12px; }
+  .cta-desc { color: #71717a; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+  .cta-btn { display: inline-block; background: #dc2626; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 1rem; }
+  .info-card { background: #f8f8f8; border: 1px solid #e4e4e7; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .info-card-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #a1a1aa; margin-bottom: 16px; }
+  .info-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #e4e4e7; }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { color: #71717a; font-size: 0.9rem; }
+  .info-value { color: #09090b; font-weight: 600; font-size: 0.9rem; }
+  .referral-box { background: #09090b; border-radius: 12px; padding: 28px; margin-bottom: 32px; text-align: center; }
+  .referral-box p { color: #a1a1aa; font-size: 0.95rem; margin: 0 0 16px; line-height: 1.6; }
+  .referral-box a { display: inline-block; background: #dc2626; color: white; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; }
+  .social-row { text-align: center; margin-bottom: 32px; }
+  .social-row p { color: #71717a; font-size: 0.9rem; margin-bottom: 12px; }
+  .social-row a { color: #dc2626; text-decoration: none; font-weight: 600; }
+  .footer { text-align: center; padding: 0 40px 40px; }
+  .footer p { color: #a1a1aa; font-size: 0.8rem; line-height: 1.6; margin: 0; }
+  .footer a { color: #dc2626; text-decoration: none; }
+  .divider { height: 1px; background: #e4e4e7; margin: 0 40px 32px; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <div class="header-logo"><span>QZ</span> Motors</div>
+    <div class="badge">⭐ ¿Cómo estuvo?</div>
+  </div>
+
+  <div class="body">
+    <p class="greeting">¡Hola, {{ reserva.nombre }}!</p>
+    <p class="subtitle">Esperamos que tu inspección haya sido de gran ayuda. Nos importa mucho tu opinión para seguir mejorando.</p>
+
+    <div class="stars">⭐⭐⭐⭐⭐</div>
+    <p class="stars-label">¿Cómo calificarías tu experiencia con QZ Motors?</p>
+
+    <!-- CTA Google Review -->
+    <div class="cta-block">
+      <p class="cta-title">📝 Deja tu reseña en Google</p>
+      <p class="cta-desc">Tu opinión ayuda a otros compradores a tomar mejores decisiones y nos ayuda a crecer. ¡Solo toma 1 minuto!</p>
+      <a href="https://wa.me/56942556282?text=Hola,%20quiero%20dar%20mi%20opinión%20sobre%20la%20inspección%20{{ reserva.orden }}" class="cta-btn">Enviar mi opinión</a>
+    </div>
+
+    <!-- Resumen inspección -->
+    <div class="info-card">
+      <div class="info-card-title">🔍 Tu inspección</div>
+      <div class="info-row">
+        <span class="info-label">Orden</span>
+        <span class="info-value">{{ reserva.orden }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Patente</span>
+        <span class="info-value">{{ reserva.patente|upper }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Fecha de inspección</span>
+        <span class="info-value">{{ reserva.fecha|date:"d/m/Y" }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Plan</span>
+        <span class="info-value">{{ reserva.get_plan_display_name }}</span>
+      </div>
+    </div>
+
+    <!-- Referidos -->
+    <div class="referral-box">
+      <p>¿Conoces a alguien más comprando un auto usado?<br>Recomiéndanos y ayúdalos a no ser estafados.</p>
+      <a href="https://wa.me/56942556282?text=Un%20amigo%20me%20recomendó%20QZ%20Motors">Recomendar a un amigo</a>
+    </div>
+
+    <!-- Redes -->
+    <div class="social-row">
+      <p>Síguenos para ver inspecciones reales y consejos:</p>
+      <a href="https://instagram.com/qz.motors">{{ qz_instagram }} en Instagram</a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="footer">
+    <p>QZ Motors — Inspección Automotriz Pre-Compra<br>
+    Instagram: <a href="https://instagram.com/qz.motors">{{ qz_instagram }}</a> · Tel: {{ qz_phone }}<br><br>
+    © 2026 QZ Motors. Todos los derechos reservados.</p>
+  </div>
+
+</div>
+</body>
+</html>

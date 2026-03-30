@@ -30,7 +30,7 @@ body {
 }
 
 .navbar-brand i {
-    color: var(--brand-color);
+    color: white;
 }
 
 .bg-brand {
