@@ -2,43 +2,37 @@ import os
 import dj_database_url
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ==========================================
-# SEGURIDAD Y CONFIGURACIÓN HARDCODEADA
+# SEGURIDAD DINÁMICA (Lee de Railway)
 # ==========================================
 
-# Tu clave secreta fija (Cuidado con subirla a repos públicos en el futuro)
-SECRET_KEY = 'django-insecure-qzmotors-produccion-2026-clave-fija'
+# Si no hay variable en Railway, usa una de desarrollo (seguridad)
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-qzmotors-2026')
 
-# DEBUG en True para ver la pantalla amarilla si algo falla
-DEBUG = True 
+# DEBUG: Solo será True si tú lo pones explícitamente en Railway. 
+# En producción SIEMPRE debe ser False.
+DEBUG = os.environ.get('DEBUG', 'False').lower() in ['true', '1', 't']
 
-# Lista de hosts permitidos (Hardcodeados para evitar el error 400)
-ALLOWED_HOSTS = [
-    'qzmotors.cl',
-    'www.qzmotors.cl',
-    'web-production-0711f.up.railway.app',
-    'localhost',
-    '127.0.0.1',
-    '*', # El comodín final para asegurar que nada rebote
-]
+# ALLOWED_HOSTS: Lee la lista de Railway, si no hay nada, usa localhost.
+_hosts = os.environ.get('ALLOWED_HOSTS', 'qzmotors.cl,www.qzmotors.cl,localhost')
+ALLOWED_HOSTS = [h.strip() for h in _hosts.split(',') if h.strip()]
+# Agregamos el asterisco solo si DEBUG es True para facilitar pruebas
+if DEBUG:
+    ALLOWED_HOSTS.append('*')
 
-# Orígenes confiables para formularios (Crucial para el Admin)
-CSRF_TRUSTED_ORIGINS = [
-    'https://qzmotors.cl',
-    'https://www.qzmotors.cl',
-    'https://web-production-0711f.up.railway.app',
-]
+# CSRF: Crucial para formularios tras Cloudflare
+_csrf = os.environ.get('CSRF_TRUSTED_ORIGINS', 'https://qzmotors.cl,https://www.qzmotors.cl')
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in _csrf.split(',') if o.strip()]
 
-# Configuración necesaria para Cloudflare y Railway
+# Configuración de Proxy (Vital para Railway + Cloudflare)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
 
 # ==========================================
-# DEFINICIÓN DE APLICACIONES
+# APLICACIONES Y MIDDLEWARE
 # ==========================================
 
 INSTALLED_APPS = [
@@ -82,20 +76,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'qzmotors.wsgi.application'
 
 # ==========================================
-# BASE DE DATOS
+# BASE DE DATOS Y ESTÁTICOS
 # ==========================================
 
 DATABASES = {
     'default': dj_database_url.config(
-        # Si tienes DATABASE_URL en Railway la usará, sino usará sqlite local.
         default=f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}',
         conn_max_age=600
     )
 }
-
-# ==========================================
-# ARCHIVOS ESTÁTICOS
-# ==========================================
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -105,17 +94,6 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-
-# ==========================================
-# OTROS AJUSTES
-# ==========================================
-
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
 
 LANGUAGE_CODE = 'es-cl'
 TIME_ZONE = 'America/Santiago'
