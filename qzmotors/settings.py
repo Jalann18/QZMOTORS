@@ -131,3 +131,25 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+# ──────────────────────────────────────────────
+# Email (Gmail SMTP)
+# Configura en .env cuando tengas el correo:
+#   EMAIL_HOST_USER=tucorreo@gmail.com
+#   EMAIL_HOST_PASSWORD=tu_contrasena_de_app_16_digitos
+# ──────────────────────────────────────────────
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+
+if EMAIL_HOST_USER:
+    # Producción: envío real por Gmail
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+    DEFAULT_FROM_EMAIL = f'QZ Motors <{EMAIL_HOST_USER}>'
+    SERVER_EMAIL = EMAIL_HOST_USER
+else:
+    # Desarrollo: imprime los correos en la consola (sin credenciales)
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'QZ Motors <noreply@qzmotors.cl>'
