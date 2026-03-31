@@ -26,7 +26,7 @@ def _send_sync(subject, to_email, template_name, context):
         html_body = render_to_string(f"landing/emails/{template_name}", context)
         send_mail(
             subject=subject,
-            message="",          # Texto plano vacío — usamos solo HTML
+            message="Este es un correo automático de QZ Motors. Por favor, habilita la vista HTML en tu cliente de correo para ver los detalles de tu reserva.", 
             from_email=QZ_EMAIL,
             recipient_list=[to_email],
             html_message=html_body,
