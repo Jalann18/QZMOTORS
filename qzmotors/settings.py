@@ -126,3 +126,27 @@ ANYMAIL = {
 }
 
 DEFAULT_FROM_EMAIL = 'QZ Motors <contacto@qzmotors.cl>'
+
+# ==========================================
+# 7. LOGGING CONFIGURATION
+# ==========================================
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'landing': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
