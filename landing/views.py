@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 from .models import Cita, Reserva
 from .flow_api import create_payment, get_payment_status
-from .emails import send_confirmation_email
+from .emails import send_confirmation_email, send_admin_notification
 
 
 # ──────────────────────────────────────────────
@@ -119,7 +119,8 @@ def checkout_process(request):
             # ── Pago presencial ──
             if metodo == 'presencial':
                 reserva = _save_reserva(data, orden, estado='confirmada')
-                send_confirmation_email(reserva)  # Correo #1 inmediato
+                send_confirmation_email(reserva)   # Correo al cliente
+                send_admin_notification(reserva)   # Correo al admin (QZ Motors)
                 return JsonResponse({"success": True, "presencial": True})
 
             # ── Pago Flow ──
@@ -174,7 +175,8 @@ def checkout_return(request):
             reserva = Reserva.objects.get(orden=full_order)
             reserva.estado = 'confirmada'
             reserva.save(update_fields=['estado'])
-            send_confirmation_email(reserva)  # Correo #1
+            send_confirmation_email(reserva)   # Correo al cliente
+            send_admin_notification(reserva)   # Correo al admin (QZ Motors)
         except Reserva.DoesNotExist:
             pass  # La reserva puede no existir si hubo un error previo
 

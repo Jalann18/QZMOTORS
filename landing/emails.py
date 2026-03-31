@@ -80,3 +80,15 @@ def send_followup_email(reserva):
         "qz_instagram": QZ_INSTAGRAM,
     }
     return _send(subject, reserva.email, "followup.html", context)
+
+
+# ─────────────────────────────────────────────
+# CORREO #ADMIN — Aviso de nueva reserva/venta
+# ─────────────────────────────────────────────
+def send_admin_notification(reserva):
+    subject = f"🚨 NUEVA VENTA — {reserva.orden} | {reserva.patente}"
+    admin_email = "contacto@qzmotors.cl" # Correo oficial de QZ Motors
+    context = {
+        "reserva": reserva,
+    }
+    return _send(subject, admin_email, "admin_notification.html", context)
