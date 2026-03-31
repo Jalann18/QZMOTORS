@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'anymail',
     'landing',
 ]
 
@@ -116,8 +117,12 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ==========================================
-# 6. CONFIGURACIÓN DE CORREO (RESEND API)
+# 6. CONFIGURACIÓN DE CORREO (RESEND API via Anymail)
 # ==========================================
-EMAIL_BACKEND = 'django_resend.backend.ResendBackend'
-RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
+EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
+
+ANYMAIL = {
+    "RESEND_API_KEY": os.environ.get('RESEND_API_KEY'),
+}
+
 DEFAULT_FROM_EMAIL = 'QZ Motors <contacto@qzmotors.cl>'
