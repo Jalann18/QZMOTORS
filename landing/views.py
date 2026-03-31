@@ -3,10 +3,14 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import uuid
+import logging
 from datetime import datetime
 from .models import Cita, Reserva
 from .flow_api import create_payment, get_payment_status
 from .emails import send_confirmation_email, send_admin_notification
+
+# Configuración de Logging
+logger = logging.getLogger(__name__)
 
 
 # ──────────────────────────────────────────────
@@ -111,8 +115,11 @@ def checkout_process(request):
             data = json.loads(request.body)
             plan = data.get('plan', 'scanner')
             metodo = data.get('payment_method', 'flow')
-            prices = {'scanner': 350, 'completa': 65000, 'promo_2x1': 100000}
-            amount = prices.get(plan, 350)
+            prices = {'scanner': 30000, 'completa': 65000, 'promo_2x1': 100000}
+            amount = prices.get(plan, 30000)
+
+            # Log inicio
+            logger.info(f"[CHECKOUT START] Plan: {plan}, Metodo: {metodo}, Email: {data.get('email')}")
 
             orden = _build_orden(plan)
 
@@ -124,7 +131,6 @@ def checkout_process(request):
                 return JsonResponse({"success": True, "presencial": True})
 
             # ── Pago Flow ──
-            # Guardamos pendiente antes de redirigir; se confirma en checkout_return
             _save_reserva(data, orden, estado='pendiente')
 
             url_return = request.build_absolute_uri('/checkout/return/')
@@ -140,13 +146,15 @@ def checkout_process(request):
             )
 
             if flow_response.get('success'):
+                logger.info(f"[CHECKOUT FLOW OK] Orden {orden} redirigiendo a {flow_response['url']}")
                 return JsonResponse({"success": True, "redirect_url": flow_response['url']})
             else:
-                # Limpiar reserva pendiente si Flow falla
+                logger.error(f"[CHECKOUT FLOW ERROR] Error en Flow: {flow_response.get('error')}")
                 Reserva.objects.filter(orden=orden).delete()
                 return JsonResponse({"success": False, "error": flow_response.get('error')})
 
         except Exception as e:
+            logger.exception(f"[CHECKOUT CRASH] Error inesperado en checkout_process: {e}")
             return JsonResponse({"success": False, "error": str(e)})
 
     return JsonResponse({"success": False, "error": "Invalid Method"})
@@ -156,29 +164,44 @@ def checkout_process(request):
 def checkout_return(request):
     """Página donde el usuario aterriza luego de pagar/cancelar en Flow."""
     token = request.POST.get('token') or request.GET.get('token')
+    logger.info(f"[CHECKOUT RETURN] Recibido retorno con token: {token}")
 
     if not token:
+        logger.warning("[CHECKOUT RETURN] No se encontró token en el request")
         return render(request, 'landing/checkout_return.html', {
             'status': 'error',
             'message': 'Token no encontrado'
         })
 
     status_data = get_payment_status(token)
-    full_order = status_data.get('commerceOrder', '')
+    full_order = status_data.get('commerceOrder')
+    
+    # Validar que full_order exista para evitar errores de split()
+    if not full_order:
+        logger.error(f"[CHECKOUT RETURN ERROR] Flow no devolvió commerceOrder. Respuesta cruda: {status_data}")
+        return render(request, 'landing/checkout_return.html', {
+            'status': 'failed',
+            'order': 'Desconocida',
+            'message': 'No se pudo identificar la orden en la respuesta de Flow.'
+        })
 
+    # Parsing seguro del plan desde la orden
     parts = full_order.split('-')
-    plan_id = parts[1].lower() if len(parts) > 2 else 'promo_2x1'
+    plan_id = parts[1].lower() if len(parts) > 1 else 'promo_2x1'
 
     if status_data.get('status') == 2:  # Pagado exitosamente
-        # Confirmar la reserva y enviar correo #1
+        logger.info(f"[CHECKOUT SUCCESS] Pago confirmado para orden {full_order}")
         try:
             reserva = Reserva.objects.get(orden=full_order)
-            reserva.estado = 'confirmada'
-            reserva.save(update_fields=['estado'])
-            send_confirmation_email(reserva)   # Correo al cliente
-            send_admin_notification(reserva)   # Correo al admin (QZ Motors)
+            if reserva.estado != 'confirmada':
+                reserva.estado = 'confirmada'
+                reserva.save(update_fields=['estado'])
+                send_confirmation_email(reserva)   # Correo al cliente
+                send_admin_notification(reserva)   # Correo al admin (QZ Motors)
         except Reserva.DoesNotExist:
-            pass  # La reserva puede no existir si hubo un error previo
+            logger.error(f"[CHECKOUT ERROR] Reserva {full_order} no encontrada en DB tras pago exitoso.")
+        except Exception as e:
+            logger.exception(f"[CHECKOUT ERROR] Error al actualizar reserva {full_order}: {e}")
 
         context = {
             'status': 'success',
@@ -187,7 +210,7 @@ def checkout_return(request):
             'plan': plan_id
         }
     else:
-        # Marcar como cancelada
+        logger.warning(f"[CHECKOUT FAILED] Pago fallido o cancelado para orden {full_order}. Status: {status_data.get('status')}")
         Reserva.objects.filter(orden=full_order).update(estado='cancelada')
         context = {
             'status': 'failed',

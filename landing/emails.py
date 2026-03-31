@@ -10,6 +10,7 @@ Para activar, configura en .env:
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
+import threading
 import logging
 
 logger = logging.getLogger(__name__)
@@ -19,8 +20,8 @@ QZ_PHONE = "+56 9 4255 6282"
 QZ_INSTAGRAM = "@qz.motors"
 
 
-def _send(subject, to_email, template_name, context):
-    """Función interna de envío. Maneja errores sin romper el flujo."""
+def _send_sync(subject, to_email, template_name, context):
+    """Función síncrona que realiza el envío real."""
     try:
         html_body = render_to_string(f"landing/emails/{template_name}", context)
         send_mail(
@@ -31,11 +32,23 @@ def _send(subject, to_email, template_name, context):
             html_message=html_body,
             fail_silently=False,
         )
-        logger.info(f"[EMAIL] '{subject}' enviado a {to_email}")
+        logger.info(f"[EMAIL SUCCESS] '{subject}' enviado a {to_email}")
         return True
     except Exception as e:
-        logger.error(f"[EMAIL ERROR] No se pudo enviar '{subject}' a {to_email}: {e}")
+        logger.error(f"[EMAIL ERROR] Falló '{subject}' a {to_email}: {e}")
         return False
+
+
+def _send(subject, to_email, template_name, context):
+    """Lanza el envío en un hilo separado para no bloquear el proceso principal."""
+    thread = threading.Thread(
+        target=_send_sync, 
+        args=(subject, to_email, template_name, context)
+    )
+    thread.daemon = True # El hilo muere si el proceso principal muere
+    thread.start()
+    logger.info(f"[EMAIL THREAD] Lanzado hilo para '{subject}' a {to_email}")
+    return True # Retorna True de inmediato
 
 
 # ─────────────────────────────────────────────

@@ -9,18 +9,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 1. CONFIGURACIÓN DE ENTORNO (ORDEN CORREGIDO)
 # ==========================================
 
-# Definimos DEBUG primero para que la lógica de SECRET_KEY pueda usarlo
-DEBUG = os.environ.get('DEBUG', 'False').lower() in ['true', '1', 't']
+# Por defecto DEBUG es True si no se especifica (entorno local)
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ['true', '1', 't']
 
 # Intentamos sacar la llave de Railway
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Fail-safe para SECRET_KEY
-if not SECRET_KEY and not DEBUG:
-    raise ValueError("ERROR CRÍTICO: La variable SECRET_KEY no está configurada en Railway.")
-
+# Fallback para desarrollo integrado
 if not SECRET_KEY:
     SECRET_KEY = 'django-insecure-dev-key-solo-para-entorno-local-2026'
+
+# Validación extra solo si estamos en producción (o intentándolo)
+if not os.environ.get('SECRET_KEY') and not DEBUG:
+    raise ValueError("ERROR CRÍTICO: La variable SECRET_KEY no está configurada en el entorno de producción.")
 
 # ==========================================
 # 2. SEGURIDAD Y RED (ALLOWED HOSTS & CSRF)
