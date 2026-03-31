@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mapping 
     if (plan === 'scanner') {
         planTitle = "Scanner Automotriz";
-        planPrice = "$350";
+        planPrice = "$30.000";
     } else if (plan === 'completa') {
         planTitle = "Inspección Completa 360°";
         planPrice = "$65.000";

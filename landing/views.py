@@ -94,7 +94,7 @@ def _build_orden(plan):
 def _save_reserva(data, orden, estado='pendiente'):
     """Crea o actualiza una Reserva con los datos del checkout."""
     plan = data.get('plan', 'scanner')
-    prices = {'scanner': 350, 'completa': 65000, 'promo_2x1': 100000}
+    prices = {'scanner': 30000, 'completa': 65000, 'promo_2x1': 100000}
 
     fecha_str = data.get('fecha', '')
     try:
@@ -117,7 +117,7 @@ def _save_reserva(data, orden, estado='pendiente'):
         fecha=fecha,
         hora=data.get('hora', ''),
         plan=plan,
-        monto=prices.get(plan, 350),
+        monto=prices.get(plan, 30000),
         metodo_pago=data.get('payment_method', 'flow'),
         estado=estado,
     )
@@ -136,8 +136,8 @@ def checkout_process(request):
             data = json.loads(request.body)
             plan = data.get('plan', 'scanner')
             metodo = data.get('payment_method', 'flow')
-            prices = {'scanner': 350, 'completa': 65000, 'promo_2x1': 100000}
-            amount = prices.get(plan, 350)
+            prices = {'scanner': 30000, 'completa': 65000, 'promo_2x1': 100000}
+            amount = prices.get(plan, 30000)
 
             # Log inicio
             logger.info(f"[CHECKOUT START] Plan: {plan}, Metodo: {metodo}, Email: {data.get('email')}")
