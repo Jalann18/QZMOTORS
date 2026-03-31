@@ -116,12 +116,8 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ==========================================
-# 6. CONFIGURACIÓN DE CORREO (SMTP)
+# 6. CONFIGURACIÓN DE CORREO (RESEND API)
 # ==========================================
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'zuninoweb.qz@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') # Configurado en Railway
+EMAIL_BACKEND = 'django_resend.backend.ResendBackend'
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
 DEFAULT_FROM_EMAIL = 'QZ Motors <contacto@qzmotors.cl>'
