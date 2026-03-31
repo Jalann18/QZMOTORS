@@ -327,4 +327,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // ─────────────────────────────────────────────────────────
+    // Restaurador de Botones (Fijación de Bug al volver atrás)
+    // ─────────────────────────────────────────────────────────
+    // Si el usuario llega a Flow y aprieta el botón "Atrás" de su navegador,
+    // el navegador carga la página congelada en el tiempo (con el botón diciendo "Procesando").
+    // Este evento detecta el viaje en el tiempo (bfcache) y "descongela" los botones.
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) { // event.persisted significa que cargó de la memoria caché
+            const flowBtn = document.getElementById('submitBtn');
+            const cashBtn = document.getElementById('btnCash');
+            if (flowBtn) {
+                flowBtn.disabled = false;
+                flowBtn.innerHTML = 'Pagar en Flow <i class="bi bi-shield-lock-fill ms-2"></i>';
+            }
+            if (cashBtn) {
+                cashBtn.disabled = false;
+                cashBtn.innerHTML = 'Pago Presencial <i class="bi bi-wallet2 ms-2 text-warning"></i>';
+            }
+        }
+    });
+
 });
