@@ -64,6 +64,7 @@ class Reserva(models.Model):
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='pendiente')
 
     # Control de correos enviados
+    confirmacion_enviada = models.BooleanField(default=False)
     recordatorio_enviado = models.BooleanField(default=False)
     followup_enviado = models.BooleanField(default=False)
 

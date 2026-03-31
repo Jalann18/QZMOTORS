@@ -65,6 +65,27 @@ def agendar_cita(request):
 # Helpers
 # ──────────────────────────────────────────────
 
+def _confirmar_y_notificar(reserva):
+    """Confirmación unificada (usada por webhook y return) para evitar duplicados y race conditions."""
+    confirmado = False
+    
+    # 1. Asegurar estado
+    if reserva.estado != 'confirmada':
+        reserva.estado = 'confirmada'
+        confirmado = True
+        
+    # 2. Asegurar notificación única
+    if not reserva.confirmacion_enviada:
+        send_confirmation_email(reserva)   # Correo al cliente
+        send_admin_notification(reserva)   # Correo al admin (QZ Motors)
+        reserva.confirmacion_enviada = True
+        confirmado = True
+        
+    if confirmado:
+        reserva.save(update_fields=['estado', 'confirmacion_enviada'])
+        logger.info(f"[CHECKOUT] Reserva {reserva.orden} confirmada y notificada.")
+
+
 def _build_orden(plan):
     uid = str(uuid.uuid4()).replace("-", "")
     return f"QZ-{plan.upper()}-{uid[:6].upper()}"
@@ -193,15 +214,11 @@ def checkout_return(request):
         logger.info(f"[CHECKOUT SUCCESS] Pago confirmado para orden {full_order}")
         try:
             reserva = Reserva.objects.get(orden=full_order)
-            if reserva.estado != 'confirmada':
-                reserva.estado = 'confirmada'
-                reserva.save(update_fields=['estado'])
-                send_confirmation_email(reserva)   # Correo al cliente
-                send_admin_notification(reserva)   # Correo al admin (QZ Motors)
+            _confirmar_y_notificar(reserva)
         except Reserva.DoesNotExist:
             logger.error(f"[CHECKOUT ERROR] Reserva {full_order} no encontrada en DB tras pago exitoso.")
         except Exception as e:
-            logger.exception(f"[CHECKOUT ERROR] Error al actualizar reserva {full_order}: {e}")
+            logger.exception(f"[CHECKOUT ERROR] Error al procesar reserva {full_order} en retorno: {e}")
 
         context = {
             'status': 'success',
@@ -231,7 +248,16 @@ def checkout_confirm(request):
     status_data = get_payment_status(token)
     if status_data.get('status') == 2:
         full_order = status_data.get('commerceOrder', '')
-        Reserva.objects.filter(orden=full_order).update(estado='confirmada')
-        return HttpResponse("OK", status=200)
+        logger.info(f"[WEBHOOK SUCCESS] Notificación recibida para orden {full_order}")
+        try:
+            reserva = Reserva.objects.get(orden=full_order)
+            _confirmar_y_notificar(reserva)
+            return HttpResponse("OK", status=200)
+        except Reserva.DoesNotExist:
+            logger.error(f"[WEBHOOK ERROR] Reserva {full_order} no existe.")
+            return HttpResponse("Reserva no existe", status=404)
+        except Exception as e:
+            logger.exception(f"[WEBHOOK ERROR] Error en webhook: {e}")
+            return HttpResponse("Error interno", status=500)
 
     return HttpResponse("Pago no completado", status=400)
