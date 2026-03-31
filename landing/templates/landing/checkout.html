@@ -212,8 +212,17 @@
                                     </div>
                                 </div>
 
+                                <!-- Terms and Conditions Checkbox -->
+                                <div class="form-check mt-3 mb-4">
+                                    <input class="form-check-input" type="checkbox" id="termsChecked" required>
+                                    <label class="form-check-label text-secondary small" for="termsChecked">
+                                        He leído y acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="text-brand fw-bold text-decoration-none">Términos y Condiciones</a> del servicio.
+                                    </label>
+                                    <div class="invalid-feedback">Debes aceptar los términos y condiciones antes de pagar.</div>
+                                </div>
+
                                 <!-- Form Buttons -->
-                                <div class="d-grid d-md-flex justify-content-md-between gap-3 mt-5">
+                                <div class="d-grid d-md-flex justify-content-md-between gap-3 mt-4">
                                     <button type="button"
                                         class="btn btn-dark border border-secondary text-white px-md-4 py-3 rounded-3 order-3 order-md-1"
                                         id="btnBack">
@@ -285,6 +294,84 @@
                 <i class="bi bi-info-circle-fill me-3 fs-5 mt-1"></i>
                 <span class="small fw-medium">8 de cada 10 chilenos aseguran que se percataron de fallas graves en su
                     auto usado solo después de comprarlo. Cómpralo seguro.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms and Conditions Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content bg-dark text-light border-secondary">
+                <div class="modal-header border-bottom border-secondary">
+                    <h5 class="modal-title fw-bold" id="termsModalLabel"><i class="bi bi-file-earmark-text text-brand me-2"></i>Términos y Condiciones</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body custom-scrollbar" style="font-size: 0.9rem; line-height: 1.6;">
+                    <h6 class="text-brand fw-bold mb-2">1. IDENTIFICACIÓN DEL PRESTADOR</h6>
+                    <p>El presente documento regula la prestación de servicios por parte de QZ Motors SpA, sociedad constituida conforme a las leyes de la República de Chile, en adelante “la Empresa”.</p>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">2. OBJETO DEL SERVICIO</h6>
+                    <p>La Empresa presta servicios de inspección pre-compra automotriz, los cuales comprenden, entre otros:</p>
+                    <ul>
+                        <li>Inspección visual y mecánica</li>
+                        <li>Diagnóstico electrónico mediante scanner</li>
+                        <li>Revisión de antecedentes documentales</li>
+                        <li>Evaluación general del estado del vehículo</li>
+                        <li>Emisión de informe técnico y/o informe de antecedentes (ej. Autofact)</li>
+                    </ul>
+                    <p>El servicio tiene carácter referencial y orientativo, destinado a apoyar la toma de decisión del cliente.</p>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">3. ACEPTACIÓN DE LOS TÉRMINOS</h6>
+                    <p>La contratación de los servicios, ya sea mediante pago, reserva o cualquier forma de solicitud, implica la aceptación expresa, total e irrevocable de los presentes Términos y Condiciones.</p>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">4. NATURALEZA Y ALCANCE DE LA INSPECCIÓN</h6>
+                    <p>El cliente declara conocer y aceptar que:</p>
+                    <ol type="a">
+                        <li class="mb-1">La inspección es de carácter no invasivo, sin desmontaje de piezas o intervención mayor del vehículo.</li>
+                        <li class="mb-1">El informe emitido refleja únicamente el estado observable del vehículo al momento de la inspección.</li>
+                        <li class="mb-1">No constituye una garantía, certificación ni peritaje judicial del estado del vehículo.</li>
+                        <li class="mb-1">La Empresa no asegura la detección total de fallas, desperfectos o vicios ocultos.</li>
+                    </ol>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">5. LIMITACIÓN DE RESPONSABILIDAD</h6>
+                    <p>En conformidad a la legislación chilena vigente, el cliente acepta expresamente que la Empresa no será responsable, en ningún caso, por:</p>
+                    <ul>
+                        <li>Fallas mecánicas, eléctricas, electrónicas o estructurales que se manifiesten con posterioridad a la inspección.</li>
+                        <li>Vicios ocultos, fallas intermitentes o defectos no detectables mediante una inspección no invasiva.</li>
+                        <li>Daños derivados del uso posterior del vehículo.</li>
+                        <li>Pérdidas económicas, lucro cesante o cualquier perjuicio derivado de la compra del vehículo.</li>
+                        <li>Información errónea, falsa o incompleta proporcionada por terceros (vendedor, documentos, bases de datos, etc.).</li>
+                    </ul>
+                    <p>La responsabilidad de la Empresa se limita exclusivamente a la prestación del servicio descrito, sin asumir obligación de resultado.</p>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">6. RESPONSABILIDAD DEL CLIENTE</h6>
+                    <p>El cliente declara y acepta que:</p>
+                    <ul>
+                        <li>La decisión final de compra del vehículo es de su exclusiva responsabilidad.</li>
+                        <li>Ha comprendido la naturaleza limitada del servicio.</li>
+                        <li>Utiliza el informe como una herramienta de apoyo, no como garantía.</li>
+                    </ul>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">7. CONDICIONES DE PRESTACIÓN</h6>
+                    <p>La Empresa podrá:</p>
+                    <ul>
+                        <li>Rechazar o suspender la inspección si no existen condiciones adecuadas de seguridad o acceso.</li>
+                        <li>Modificar el alcance del servicio según las condiciones del vehículo o del entorno.</li>
+                    </ul>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">8. PROPIEDAD DEL INFORME</h6>
+                    <p>El informe técnico es de uso exclusivo del cliente que contrata el servicio y no constituye un documento transferible con garantía asociada.</p>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">9. LEGISLACIÓN APLICABLE Y JURISDICCIÓN</h6>
+                    <p>Los presentes Términos y Condiciones se rigen por las leyes de la República de Chile. Cualquier controversia será sometida a los tribunales de justicia competentes del domicilio del prestador del servicio.</p>
+
+                    <h6 class="text-brand fw-bold mb-2 mt-4">10. VIGENCIA</h6>
+                    <p>Estos Términos y Condiciones entran en vigencia desde su publicación y se aplican a todos los servicios prestados por la Empresa.</p>
+                </div>
+                <div class="modal-footer border-top border-secondary">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Entendido</button>
+                    <button type="button" class="btn btn-brand" onclick="document.getElementById('termsChecked').checked = true; bootstrap.Modal.getInstance(document.getElementById('termsModal')).hide();">Aceptar Términos</button>
+                </div>
             </div>
         </div>
     </div>
