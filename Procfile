@@ -1,1 +1,1 @@
-web: gunicorn qzmotors.wsgi
+web: python manage.py migrate && gunicorn qzmotors.wsgi
