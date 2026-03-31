@@ -3,10 +3,17 @@ import hmac
 import hashlib
 import requests
 
-# Flow Sandbox Credentials (UPDATE THESE FOR PRODUCTION)
-FLOW_API_KEY = "53ECCF14-B94A-49F1-B71D-71EFBABL5364"
-FLOW_SECRET_KEY = "c012fa658bfada9c4ab73015eba6f7aee8550227"
-FLOW_API_URL = "https://sandbox.flow.cl/api"
+# Flow Credentials (Usaremos variables de entorno para Producción)
+# Con fallback a Sandbox localmente
+FLOW_API_KEY = os.environ.get('FLOW_API_KEY', "53ECCF14-B94A-49F1-B71D-71EFBABL5364")
+FLOW_SECRET_KEY = os.environ.get('FLOW_SECRET_KEY', "c012fa658bfada9c4ab73015eba6f7aee8550227")
+
+# 'produccion' cargará la URL oficial, de lo contrario probará en sandbox.
+FLOW_ENV = os.environ.get('FLOW_ENV', "sandbox")
+if FLOW_ENV == "produccion":
+    FLOW_API_URL = "https://www.flow.cl/api"
+else:
+    FLOW_API_URL = "https://sandbox.flow.cl/api"
 
 def make_flow_signature(params: dict) -> str:
     """Generate the HMAC SHA256 signature required by Flow"""
