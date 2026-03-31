@@ -115,8 +115,8 @@ def checkout_process(request):
             data = json.loads(request.body)
             plan = data.get('plan', 'scanner')
             metodo = data.get('payment_method', 'flow')
-            prices = {'scanner': 30000, 'completa': 65000, 'promo_2x1': 100000}
-            amount = prices.get(plan, 30000)
+            prices = {'scanner': 350, 'completa': 65000, 'promo_2x1': 100000}
+            amount = prices.get(plan, 350)
 
             # Log inicio
             logger.info(f"[CHECKOUT START] Plan: {plan}, Metodo: {metodo}, Email: {data.get('email')}")
