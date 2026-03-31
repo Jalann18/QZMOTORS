@@ -125,4 +125,5 @@ ANYMAIL = {
     "RESEND_API_KEY": os.environ.get('RESEND_API_KEY'),
 }
 
-DEFAULT_FROM_EMAIL = 'QZ Motors <contacto@qzmotors.cl>'
+# NOTA: Mientras el DNS se propaga, Resend solo permite enviar desde 'onboarding@resend.dev'
+DEFAULT_FROM_EMAIL = 'onboarding@resend.dev' # Cambiar a 'QZ Motors <contacto@qzmotors.cl>' cuando el dominio esté verificado
