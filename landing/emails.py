@@ -3,7 +3,7 @@ emails.py — Sistema de correos de QZ Motors
 3 correos: confirmación, recordatorio (día anterior) y seguimiento post-inspección.
 
 Para activar, configura en .env:
-    EMAIL_HOST_USER=tucorreo@gmail.com
+    EMAIL_HOST_USER=zuninoweb.qz@gmail.com
     EMAIL_HOST_PASSWORD=tu_contrasena_de_app_gmail
 """
 
