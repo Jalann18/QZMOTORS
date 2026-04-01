@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /static/
+Allow: /static/landing/images/favicon.jpg
+
+Sitemap: https://www.qzmotors.cl/sitemap.xml
