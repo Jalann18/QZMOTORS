@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn qzmotors.wsgi
+web: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn qzmotors.wsgi
