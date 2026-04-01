@@ -418,7 +418,7 @@
         </div>
     </section>
 
-    <!-- ======== Modal Promo 2x1 ======== -->
+    <!-- ======== Modal Oferta Dúo ======== -->
     <div class="modal fade" id="promoModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered text-dark">
             <div class="modal-content border-0 shadow-lg"
@@ -430,27 +430,24 @@
                         data-bs-dismiss="modal" aria-label="Close"></button>
 
                     <div class="mb-3">
-                        <i class="bi bi-gift-fill text-brand" style="font-size: 3.5rem;"></i>
+                        <i class="bi bi-patch-check-fill text-brand" style="font-size: 3.5rem;"></i>
                     </div>
-                    <h3 class="fw-bold mb-3">¡Espera! Promoción Especial</h3>
-                    <p class="text-secondary mb-4" style="font-size: 1.1rem;">¿Deseas llevar una <strong>segunda
-                            Revisión Completa</strong> (para otro vehículo) por solo <strong>$35.000 extra</strong>?</p>
+                    <h3 class="fw-bold mb-3">¡Oferta Especial Dúo!</h3>
+                    <p class="text-secondary mb-4" style="font-size: 1.1rem;">Asegura tu compra agregando una <strong>segunda Revisión Completa</strong> (para otro vehículo o respaldo) por solo <strong>$35.000 adicionales</strong>.</p>
 
                     <div class="p-3 bg-light rounded-3 mb-4 border d-flex flex-column"
                         style="background: rgba(255, 60, 0, 0.05) !important; border-color: rgba(255, 60, 0, 0.2) !important;">
-                        <span class="fw-bold fs-5 text-dark">Valor Promocional 2x1: <span
+                        <span class="fw-bold fs-5 text-dark">Pack 2 Inspecciones: <span
                                 class="text-brand">$100.000</span></span>
                         <span class="small text-secondary mt-1 text-center"><i
-                                class="bi bi-check2-circle text-success me-1"></i>Ahorras $30.000 agregando otro
-                            auto</span>
+                                class="bi bi-lightning-charge-fill text-warning me-1"></i>Ahorras $30.000 comparado al precio individual</span>
                     </div>
 
                     <div class="d-grid gap-3 mt-2">
                         <a href="{% url 'checkout' %}?plan=promo_2x1"
-                            class="btn btn-brand py-3 fw-bold fs-5 shadow-sm">Sí, quiero el 2x1 ($100.000 CLP)</a>
+                            class="btn btn-brand py-3 fw-bold fs-5 shadow-sm">Sí, quiero el Plan Dúo ($100.000)</a>
                         <a href="{% url 'checkout' %}?plan=completa"
-                            class="btn btn-light py-3 fw-bold text-dark border-secondary-subtle">No gracias, continuar
-                            solo con 1 plan</a>
+                            class="btn btn-light py-3 fw-bold text-dark border-secondary-subtle">No gracias, continuar con 1 inspección ($65.000)</a>
                     </div>
                 </div>
             </div>

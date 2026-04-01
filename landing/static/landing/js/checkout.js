@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         planTitle = "Inspección Completa 360°";
         planPrice = "$65.000";
     } else if (plan === 'promo_2x1') {
-        planTitle = "Promo 2x1: Inspección Completa";
+        planTitle = "Plan Dúo: 2 Inspecciones";
         planPrice = "$100.000";
     }
 
