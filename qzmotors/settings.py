@@ -149,6 +149,7 @@ LOGGING = {
             'propagate': False,
         },
     },
+}
 # ==========================================
 # FINAL: CONFIGURACIÓN QZ MOTORS PRODUCCIÓN
 # Base de Datos: PostgreSQL (Railway)
