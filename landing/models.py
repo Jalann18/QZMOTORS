@@ -30,8 +30,8 @@ class Reserva(models.Model):
 
     PLAN_CHOICES = [
         ('scanner', 'Scanner Automotriz'),
-        ('completa', 'Inspección Completa 360°'),
-        ('promo_2x1', 'Promo 2x1 Inspección Completa'),
+        ('completa', 'Inspección Pre Compra 360°'),
+        ('promo_2x1', 'Promo 2x1 Inspección Pre Compra'),
     ]
 
     # Identificación
@@ -75,8 +75,8 @@ class Reserva(models.Model):
     def get_plan_display_name(self):
         names = {
             'scanner': 'Scanner Automotriz',
-            'completa': 'Inspección Completa 360°',
-            'promo_2x1': 'Promo 2x1 — Inspección Completa',
+            'completa': 'Inspección Pre Compra 360°',
+            'promo_2x1': 'Promo 2x1 — Inspección Pre Compra',
         }
         return names.get(self.plan, self.plan.title())
 

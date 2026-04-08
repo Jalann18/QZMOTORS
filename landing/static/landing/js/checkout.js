@@ -12,20 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
         'scanner': [
             'Diagnóstico Electrónico',
             'Lectura de fallas ECU',
-            'Reporte digital'
+            'Informe Técnico digital'
         ],
         'completa': [
             'Diagnóstico Electrónico Global',
             'Prueba de compresión/motor',
-            'Revisión de pintura y chasis',
+            'Inspección de pintura y chasis',
             'Validación real de Kilometraje',
             '<span class="text-warning fw-bold">Asesoría y Certificación</span>'
         ],
         'promo_2x1': [
-            '<span class="text-success fw-bold">✔ Incluye 2 inspecciones completas</span>',
+            '<span class="text-success fw-bold">✔ Incluye 2 inspecciones pre-compra</span>',
             'Diagnóstico Electrónico Global',
             'Prueba de compresión/motor',
-            'Revisión de pintura y chasis',
+            'Inspección de pintura y chasis',
             'Validación real de Kilometraje',
             '<span class="text-warning fw-bold">Asesoría y Certificación</span>'
         ]
@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mapping 
     if (plan === 'scanner') {
         planTitle = "Scanner Automotriz";
-        planPrice = "$30.000";
+        planPrice = "$35.000";
     } else if (plan === 'completa') {
-        planTitle = "Inspección Completa 360°";
+        planTitle = "Inspección Pre Compra 360°";
         planPrice = "$65.000";
     } else if (plan === 'promo_2x1') {
         planTitle = "Plan Dúo: 2 Inspecciones";
