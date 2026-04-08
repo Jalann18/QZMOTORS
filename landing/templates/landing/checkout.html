@@ -21,7 +21,7 @@
     <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{% url 'index' %}">
-                <i class="bi bi-car-front-fill me-2"></i><span class="text-brand">QZ</span> Motors
+                <i class="bi bi-car-front-fill me-2" style="vertical-align: middle;"></i><img src="{% static 'landing/images/qz_logo.png' %}" alt="QZ" style="height: 1.2em; vertical-align: middle;"> Motors
             </a>
             <div class="ms-auto">
                 <a class="btn btn-outline-light btn-sm px-4" href="{% url 'index' %}">Volver al inicio</a>
@@ -381,8 +381,8 @@
 
     <footer class="text-center py-4 mt-5">
         <div class="container">
-            <h4 class="fw-bold text-white mb-2"><span class="text-brand">QZ</span> Motors</h4>
-            <p class="small text-secondary mb-0">&copy; 2026 <span class="text-brand">QZ</span> Motors. Todos los derechos reservados.</p>
+            <h4 class="fw-bold text-white mb-2"><img src="{% static 'landing/images/qz_logo.png' %}" alt="QZ" style="height: 1em; vertical-align: baseline;"> Motors</h4>
+            <p class="small text-secondary mb-0">&copy; 2026 <img src="{% static 'landing/images/qz_logo.png' %}" alt="QZ" style="height: 1em; vertical-align: text-bottom;"> Motors. Todos los derechos reservados.</p>
         </div>
     </footer>
 
