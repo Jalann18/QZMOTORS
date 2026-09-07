@@ -345,22 +345,30 @@
             <!-- CSS Forzado para Widget (si no se editó en el editor de Elfsight) -->
             <style>
                 /* Intentar ocultar el botón Cargar Más genérico y márgenes */
-                .elfsight-app-a27da327-35ee-47c3-9ac9-a954bf5d9cbf .eapps-instagram-feed-posts-button,
-                .elfsight-app-a27da327-35ee-47c3-9ac9-a954bf5d9cbf [class*="Button"],
                 [class*="elfsight-app"] .eapps-instagram-feed-posts-button,
-                [class*="elfsight-app"] [class*="Button"] {
+                [class*="elfsight-app"] [class*="Button"],
+                [class*="elfsight-app"] [class*="load-more"],
+                [class*="elfsight-app"] [class*="LoadMore"],
+                [class*="elfsight-app"] button[class*="es-load-more-button"],
+                #instagram-widget-container button[class*="es-load-more"],
+                #instagram-widget-container [class*="load-more"],
+                #instagram-widget-container [class*="LoadMore"] {
                     display: none !important;
                 }
 
-                /* Forzar margen si es que no lo seleccionaste en la app */
-                .elfsight-app-a27da327-35ee-47c3-9ac9-a954bf5d9cbf .eapps-instagram-feed-posts-item,
+                /* Forzar margen */
                 [class*="elfsight-app"] .eapps-instagram-feed-posts-item {
                     padding: 8px !important;
                 }
 
                 /* Ocultar marca de agua, cabecera y botones */
                 #instagram-widget-container a[href*="elfsight"],
+                #instagram-widget-container a[href*="free-widget"],
                 #instagram-widget-container a[title*="Free"],
+                #instagram-widget-container [class*="es-badge"],
+                #instagram-widget-container [class*="badge"],
+                #instagram-widget-container [class*="Badge"],
+                #instagram-widget-container [class*="watermark"],
                 #instagram-widget-container [class*="eapps-link"],
                 #instagram-widget-container [class*="instagram-feed-header"],
                 #instagram-widget-container [class*="instagram-feed-title"] {
@@ -373,40 +381,53 @@
                 }
             </style>
 
-            <!-- Script Agresivo "Cazafantasmas" para Elfsight (Incluso si usa Shadow DOM) -->
+            <!-- Script Cazafantasmas para Elfsight (Incluso si usa Shadow DOM) -->
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
-                    setInterval(() => {
+                    const selectors = [
+                        'a[href*="elfsight"]',
+                        'a[href*="free-widget"]',
+                        'a[title*="Free"]',
+                        '[class*="es-badge"]',
+                        '[class*="badge"]',
+                        '[class*="Badge"]',
+                        '[class*="watermark"]',
+                        '[class*="eapps-link"]',
+                        '.eapps-instagram-feed-posts-button',
+                        '[class*="es-load-more"]',
+                        '[class*="load-more"]',
+                        '[class*="LoadMore"]',
+                        '.eapps-instagram-feed-header',
+                        '.eapps-instagram-feed-title',
+                        '[class*="instagram-feed-header"]',
+                        '[class*="instagram-feed-title"]'
+                    ];
+                    const selectorString = selectors.join(', ');
+
+                    const cleanElfsight = () => {
+                        // Limpiar en el contenedor general
+                        const container = document.getElementById('instagram-widget-container');
+                        if (container) {
+                            container.querySelectorAll(selectorString).forEach(el => {
+                                el.style.setProperty('display', 'none', 'important');
+                            });
+                        }
+
+                        // Limpiar en widgets y Shadow DOM
                         const widgets = document.querySelectorAll('[class*="elfsight-app"]');
                         widgets.forEach(widget => {
-                            // Selectores Basura: Cabecera, Título, Botón Cargar Más y Marca de Agua
-                            const selectors = [
-                                'a[href*="elfsight"]',
-                                'a[title*="Free"]',
-                                '[class*="eapps-link"]',
-                                '.eapps-instagram-feed-posts-button',
-                                '[class*="Button"]',
-                                '.eapps-instagram-feed-header',
-                                '.eapps-instagram-feed-title',
-                                '[class*="instagram-feed-header"]',
-                                '[class*="instagram-feed-title"]'
-                            ];
-
-                            const selectorString = selectors.join(', ');
-
-                            // Limpiar DOM normal
                             widget.querySelectorAll(selectorString).forEach(el => {
                                 el.style.setProperty('display', 'none', 'important');
                             });
-
-                            // Limpiar Shadow DOM
                             if (widget.shadowRoot) {
                                 widget.shadowRoot.querySelectorAll(selectorString).forEach(el => {
                                     el.style.setProperty('display', 'none', 'important');
                                 });
                             }
                         });
-                    }, 800);
+                    };
+
+                    setInterval(cleanElfsight, 500);
                 });
             </script>
             <!-- ========================================== -->
