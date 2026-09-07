@@ -344,7 +344,7 @@
 
             <!-- CSS Forzado para Widget (si no se editó en el editor de Elfsight) -->
             <style>
-                /* Ocultar 100% cualquier marca de agua o badge de Elfsight en toda la página */
+                /* Ocultar 100% cualquier marca de agua, badge y panel de dueño de Elfsight en toda la página */
                 a[href*="elfsight.com"],
                 a[href*="free-widget"],
                 a[class*="BadgeBase"],
@@ -356,7 +356,15 @@
                 [class*="es-badge-container"],
                 [class*="es-badge-content"],
                 [class*="es-badge-title"],
-                [class*="es-badge-icon"] {
+                [class*="es-badge-icon"],
+                [class*="owner-panel"],
+                [class*="OwnerPanel"],
+                [class*="owner-toolbar"],
+                [class*="OwnerToolbar"],
+                [class*="admin-panel"],
+                [class*="AdminPanel"],
+                [class*="widget-owner"],
+                [class*="WidgetOwner"] {
                     display: none !important;
                     visibility: hidden !important;
                     opacity: 0 !important;
@@ -403,22 +411,40 @@
                             '[class*="es-badge"]',
                             '[class*="BadgeBase"]',
                             '[class*="Badge__Container"]',
+                            '[class*="owner-panel"]',
+                            '[class*="OwnerPanel"]',
+                            '[class*="owner-toolbar"]',
+                            '[class*="OwnerToolbar"]',
+                            '[class*="admin-panel"]',
+                            '[class*="AdminPanel"]',
+                            '[class*="widget-owner"]',
+                            '[class*="WidgetOwner"]',
                             '.eapps-instagram-feed-posts-button',
                             '[class*="es-load-more"]'
                         ];
                         const selectorStr = badSelectors.join(', ');
 
-                        // 1. Eliminar del DOM principal
-                        document.querySelectorAll(selectorStr).forEach(el => {
-                            try { el.remove(); } catch(e) { el.style.display = 'none'; }
-                        });
+                        const clean = (root) => {
+                            // 1. Por selectores directos
+                            root.querySelectorAll(selectorStr).forEach(el => {
+                                try { el.remove(); } catch(e) { el.style.display = 'none'; }
+                            });
+                            // 2. Por texto ("Panel only seen by widget owner")
+                            root.querySelectorAll('div, p, span, section').forEach(el => {
+                                if (el.childNodes && el.childNodes.length === 1 && el.textContent && el.textContent.includes('Panel only seen by widget owner')) {
+                                    const parent = el.closest('div[class*="owner"]') || el.parentElement;
+                                    try { (parent || el).remove(); } catch(e) { (parent || el).style.display = 'none'; }
+                                }
+                            });
+                        };
 
-                        // 2. Eliminar de cualquier Shadow DOM
+                        // Limpiar DOM principal
+                        clean(document);
+
+                        // Limpiar Shadow DOMs
                         document.querySelectorAll('*').forEach(node => {
                             if (node.shadowRoot) {
-                                node.shadowRoot.querySelectorAll(selectorStr).forEach(el => {
-                                    try { el.remove(); } catch(e) { el.style.display = 'none'; }
-                                });
+                                clean(node.shadowRoot);
                             }
                         });
                     };
@@ -430,7 +456,7 @@
                         removeBadges();
                     }
 
-                    // Observar el DOM en tiempo real para matar el badge apenas sea insertado
+                    // Observar el DOM en tiempo real para matar cualquier barra apenas aparezca
                     try {
                         const observer = new MutationObserver(removeBadges);
                         observer.observe(document.documentElement, { childList: true, subtree: true });
