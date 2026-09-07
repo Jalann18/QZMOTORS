@@ -344,7 +344,35 @@
 
             <!-- CSS Forzado para Widget (si no se editó en el editor de Elfsight) -->
             <style>
-                /* Intentar ocultar el botón Cargar Más genérico y márgenes */
+                /* Ocultar 100% cualquier marca de agua o badge de Elfsight en toda la página */
+                a[href*="elfsight.com"],
+                a[href*="free-widget"],
+                a[class*="BadgeBase"],
+                a[class*="es-widget-title-link"],
+                div[class*="es-badge"],
+                div[class*="Badge__Container"],
+                div[class*="BadgeBase"],
+                div[class*="Badge__BadgeContent"],
+                [class*="es-badge-container"],
+                [class*="es-badge-content"],
+                [class*="es-badge-title"],
+                [class*="es-badge-icon"] {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                    pointer-events: none !important;
+                    position: absolute !important;
+                    left: -9999px !important;
+                    top: -9999px !important;
+                    width: 0 !important;
+                    height: 0 !important;
+                    max-width: 0 !important;
+                    max-height: 0 !important;
+                    overflow: hidden !important;
+                    z-index: -9999 !important;
+                }
+
+                /* Ocultar botón 'See More Posts' y elementos extra */
                 [class*="elfsight-app"] .eapps-instagram-feed-posts-button,
                 [class*="elfsight-app"] [class*="Button"],
                 [class*="elfsight-app"] [class*="load-more"],
@@ -356,79 +384,61 @@
                     display: none !important;
                 }
 
-                /* Forzar margen */
+                /* Margen para que las fotos respiren */
                 [class*="elfsight-app"] .eapps-instagram-feed-posts-item {
                     padding: 8px !important;
                 }
-
-                /* Ocultar marca de agua, cabecera y botones */
-                #instagram-widget-container a[href*="elfsight"],
-                #instagram-widget-container a[href*="free-widget"],
-                #instagram-widget-container a[title*="Free"],
-                #instagram-widget-container [class*="es-badge"],
-                #instagram-widget-container [class*="badge"],
-                #instagram-widget-container [class*="Badge"],
-                #instagram-widget-container [class*="watermark"],
-                #instagram-widget-container [class*="eapps-link"],
-                #instagram-widget-container [class*="instagram-feed-header"],
-                #instagram-widget-container [class*="instagram-feed-title"] {
-                    display: none !important;
-                    opacity: 0 !important;
-                    visibility: hidden !important;
-                    height: 0 !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                }
             </style>
 
-            <!-- Script Cazafantasmas para Elfsight (Incluso si usa Shadow DOM) -->
+            <!-- Script Cazafantasmas Agresivo para Elfsight (Elimina elementos del DOM) -->
             <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const selectors = [
-                        'a[href*="elfsight"]',
-                        'a[href*="free-widget"]',
-                        'a[title*="Free"]',
-                        '[class*="es-badge"]',
-                        '[class*="badge"]',
-                        '[class*="Badge"]',
-                        '[class*="watermark"]',
-                        '[class*="eapps-link"]',
-                        '.eapps-instagram-feed-posts-button',
-                        '[class*="es-load-more"]',
-                        '[class*="load-more"]',
-                        '[class*="LoadMore"]',
-                        '.eapps-instagram-feed-header',
-                        '.eapps-instagram-feed-title',
-                        '[class*="instagram-feed-header"]',
-                        '[class*="instagram-feed-title"]'
-                    ];
-                    const selectorString = selectors.join(', ');
+                (function() {
+                    const removeBadges = () => {
+                        const badSelectors = [
+                            'a[href*="elfsight.com"]',
+                            'a[href*="free-widget"]',
+                            'a[class*="BadgeBase"]',
+                            'a[class*="es-widget-title-link"]',
+                            '[class*="es-badge-container"]',
+                            '[class*="es-badge"]',
+                            '[class*="BadgeBase"]',
+                            '[class*="Badge__Container"]',
+                            '.eapps-instagram-feed-posts-button',
+                            '[class*="es-load-more"]'
+                        ];
+                        const selectorStr = badSelectors.join(', ');
 
-                    const cleanElfsight = () => {
-                        // Limpiar en el contenedor general
-                        const container = document.getElementById('instagram-widget-container');
-                        if (container) {
-                            container.querySelectorAll(selectorString).forEach(el => {
-                                el.style.setProperty('display', 'none', 'important');
-                            });
-                        }
+                        // 1. Eliminar del DOM principal
+                        document.querySelectorAll(selectorStr).forEach(el => {
+                            try { el.remove(); } catch(e) { el.style.display = 'none'; }
+                        });
 
-                        // Limpiar en widgets y Shadow DOM
-                        const widgets = document.querySelectorAll('[class*="elfsight-app"]');
-                        widgets.forEach(widget => {
-                            widget.querySelectorAll(selectorString).forEach(el => {
-                                el.style.setProperty('display', 'none', 'important');
-                            });
-                            if (widget.shadowRoot) {
-                                widget.shadowRoot.querySelectorAll(selectorString).forEach(el => {
-                                    el.style.setProperty('display', 'none', 'important');
+                        // 2. Eliminar de cualquier Shadow DOM
+                        document.querySelectorAll('*').forEach(node => {
+                            if (node.shadowRoot) {
+                                node.shadowRoot.querySelectorAll(selectorStr).forEach(el => {
+                                    try { el.remove(); } catch(e) { el.style.display = 'none'; }
                                 });
                             }
                         });
                     };
 
-                    setInterval(cleanElfsight, 500);
-                });
+                    // Ejecución inmediata
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', removeBadges);
+                    } else {
+                        removeBadges();
+                    }
+
+                    // Observar el DOM en tiempo real para matar el badge apenas sea insertado
+                    try {
+                        const observer = new MutationObserver(removeBadges);
+                        observer.observe(document.documentElement, { childList: true, subtree: true });
+                    } catch(e) {}
+
+                    // Respaldo periódico continuo
+                    setInterval(removeBadges, 150);
+                })();
             </script>
             <!-- ========================================== -->
 
