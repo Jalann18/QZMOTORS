@@ -54,14 +54,16 @@ body {
     color: var(--brand-color) !important;
 }
 
-/* Hero Section */
+/* Hero Section - Rim Blueprint Theme */
 .hero {
     position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: 80px;
+    padding-top: 100px;
+    padding-bottom: 60px;
     overflow: hidden;
+    background-color: #09090b;
 }
 
 .hero-bg {
@@ -70,8 +72,70 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -2;
-    background: url('https://images.unsplash.com/photo-1606611013016-969c19ba27bb?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
+    z-index: -3;
+    background: radial-gradient(circle at 75% 45%, rgba(220, 38, 38, 0.16) 0%, rgba(9, 9, 11, 0.95) 55%, #09090b 100%);
+}
+
+/* Hero Wheel Stage (Emerging from right screen edge) */
+.hero-wheel-stage {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 90vh;
+    max-height: 880px;
+    animation: wheelSlideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.wheel-ambient-glow {
+    position: absolute;
+    right: 20%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.45) 0%, rgba(220, 38, 38, 0.20) 42%, rgba(220, 38, 38, 0.04) 68%, transparent 75%);
+    filter: blur(50px);
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulseWheelGlow 4s ease-in-out infinite alternate;
+}
+
+.hero-wheel-cut {
+    height: 88vh;
+    max-height: 840px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    object-position: right center;
+    filter: brightness(0.78) contrast(1.05) drop-shadow(-30px 15px 50px rgba(0, 0, 0, 0.95)) drop-shadow(-10px 0 30px rgba(239, 68, 68, 0.35));
+}
+
+@keyframes wheelSlideInRight {
+    0% {
+        transform: translateY(-50%) translateX(160px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(-50%) translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulseWheelGlow {
+    0% {
+        transform: translateY(-50%) scale(0.92);
+        opacity: 0.65;
+    }
+    100% {
+        transform: translateY(-50%) scale(1.15);
+        opacity: 1;
+    }
 }
 
 .hero-overlay {
@@ -80,43 +144,170 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    background: linear-gradient(90deg, #09090b 10%, rgba(9, 9, 11, 0.8) 50%, rgba(9, 9, 11, 0.3) 100%);
+    z-index: 0;
+    background: linear-gradient(90deg, #09090b 25%, rgba(9, 9, 11, 0.7) 60%, rgba(9, 9, 11, 0.1) 100%);
 }
 
-.hero h1 {
-    font-size: clamp(3rem, 6vw, 4.5rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -1px;
+.hero-headline {
+    font-size: clamp(2.3rem, 5.5vw, 4.3rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.5px;
     margin-bottom: 1.5rem;
-    background: linear-gradient(to right, #ffffff, #a1a1aa);
+    color: #ffffff;
+    text-transform: uppercase;
+    animation: fadeUp 0.8s ease-out;
+}
+
+.hero-headline .hero-red {
+    color: #dc2626;
+    background: linear-gradient(135deg, #ff4444 0%, #dc2626 50%, #991b1b 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: fadeUp 1s ease-out;
+    display: inline-block;
+    font-weight: 950;
+    filter: drop-shadow(0 2px 14px rgba(220, 38, 38, 0.45));
 }
 
-.hero p {
+.hero-desc {
     font-size: 1.25rem;
     color: var(--text-secondary);
     font-weight: 400;
-    max-width: 600px;
-    margin-bottom: 2.5rem;
+    max-width: 620px;
+    line-height: 1.6;
+    margin-bottom: 2.2rem;
     animation: fadeUp 1s ease-out 0.2s backwards;
 }
 
-.hero-badge {
-    display: inline-block;
-    padding: 8px 16px;
-    background: rgba(220, 38, 38, 0.1);
-    color: var(--brand-color);
-    border: 1px solid rgba(220, 38, 38, 0.2);
-    border-radius: 50px;
+.hero-desc strong {
+    color: #ffffff;
     font-weight: 600;
-    font-size: 0.9rem;
+}
+
+/* Hero Kicker (Unboxed, clean editorial typography) */
+.hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #e4e4e7;
+    text-transform: uppercase;
     margin-bottom: 20px;
-    animation: fadeUp 1s ease-out backwards;
+    background: transparent;
+    border: none;
+    padding: 0;
+    animation: fadeUp 0.8s ease-out backwards;
+}
+
+/* Hero Trust Strip (Not enclosed, low vertical footprint, centered) */
+.hero-trust-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+    animation: fadeUp 1s ease-out 0.25s backwards;
+}
+
+.trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #e4e4e7;
+    white-space: nowrap;
+}
+
+.trust-item i {
+    font-size: 1.15rem;
+    color: #ef4444;
+}
+
+.trust-sep {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.9rem;
+    user-select: none;
+}
+
+@media (max-width: 991px) {
+    .hero {
+        padding-top: 100px;
+        min-height: auto;
+        padding-bottom: 70px;
+        position: relative;
+    }
+    .hero-wheel-stage {
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 55vh;
+        max-height: 460px;
+        opacity: 0.08; /* Marca de agua extra sutil y tenue en mobile */
+        filter: blur(0.3px);
+        pointer-events: none;
+    }
+    .hero-wheel-cut {
+        height: 100%;
+        max-height: 460px;
+    }
+    .wheel-ambient-glow {
+        width: 280px;
+        height: 280px;
+        right: 5%;
+        opacity: 0.16;
+        filter: blur(35px);
+    }
+    .hero-headline {
+        font-size: clamp(2rem, 7.5vw, 3.2rem);
+    }
+    .hero-trust-strip {
+        gap: 10px 14px;
+        margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding-top: 90px;
+        padding-bottom: 50px;
+    }
+    .hero-wheel-stage {
+        right: -6%;
+        top: 48%;
+        height: 50vh;
+        max-height: 380px;
+        opacity: 0.06; /* Casi un suspiro de fondo */
+    }
+    .hero-wheel-cut {
+        max-height: 380px;
+    }
+    .wheel-ambient-glow {
+        width: 220px;
+        height: 220px;
+        right: 0%;
+        opacity: 0.12;
+        filter: blur(28px);
+    }
+    .hero-kicker {
+        font-size: 0.76rem;
+        letter-spacing: 1px;
+    }
+    .hero-desc {
+        font-size: 1.05rem;
+        margin-bottom: 1.6rem;
+    }
+    .trust-item {
+        font-size: 0.85rem;
+    }
 }
 
 /* Buttons */
@@ -283,6 +474,36 @@ body {
     line-height: 1.6;
     margin: 0;
 }
+
+/* Card Background Number (Orden numérico en tono gris de fondo) */
+.card-bg-number {
+    position: absolute;
+    top: 14px;
+    right: 22px;
+    font-size: 3.8rem;
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.07);
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+    letter-spacing: -2px;
+    transition: all 0.4s ease;
+    font-variant-numeric: tabular-nums;
+}
+
+.glass-card:hover .card-bg-number {
+    color: rgba(220, 38, 38, 0.16);
+    transform: translateY(-2px) scale(1.05);
+}
+
+.glass-card .icon-box,
+.glass-card h4,
+.glass-card p {
+    position: relative;
+    z-index: 1;
+}
+
 
 /* Form styling */
 .booking-section {

@@ -1,11 +1,12 @@
 :root {
     --brand-color: #dc2626;
-    --brand-hover: #991b1b;
-    --dark-bg: #09090b;
+    --brand-hover: #b91c1c;
+    --dark-bg: #000000;
+    --card-bg: #0a0a0c;
     --surface-color: rgba(255, 255, 255, 0.03);
     --surface-border: rgba(255, 255, 255, 0.08);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
 }
 
 body {
@@ -17,7 +18,7 @@ body {
 
 /* Navbar */
 .navbar {
-    background-color: rgba(9, 9, 11, 0.8) !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--surface-border);
     padding: 15px 0;
@@ -41,19 +42,18 @@ body {
     color: var(--brand-color) !important;
 }
 
-/* Checkout Card */
+/* Checkout Card (Pure black with red, zero bluish tint) */
 .checkout-section {
     min-height: 100vh;
-    background: radial-gradient(ellipse at top, #18181b 0%, #09090b 100%);
+    background: #000000;
+    background: radial-gradient(ellipse at top, #131316 0%, #000000 65%);
 }
 
 .glass-checkout-card {
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: var(--card-bg);
     border: 1px solid var(--surface-border);
     border-radius: 20px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
 }
 
 .order-summary {
@@ -62,7 +62,7 @@ body {
 
 /* Form Styles */
 .custom-input {
-    background-color: rgba(255, 255, 255, 0.03) !important;
+    background-color: #121214 !important;
     border: 1px solid var(--surface-border) !important;
     color: white !important;
     border-radius: 10px;

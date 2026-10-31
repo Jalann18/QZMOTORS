@@ -15,29 +15,37 @@ document.addEventListener('DOMContentLoaded', () => {
             'Informe Técnico digital'
         ],
         'completa': [
-            'Diagnóstico Electrónico Global',
-            'Prueba de compresión/motor',
-            'Inspección de pintura y chasis',
-            'Validación real de Kilometraje',
-            '<span class="text-warning fw-bold">Asesoría y Certificación</span>'
+            'Inspección Mecánica',
+            'Inspección Estética',
+            'Inspección Estructural',
+            'Scanner',
+            'Test de Batería',
+            'Validación de Kilometraje',
+            'Validación de VIN',
+            'Prueba de Ruta',
+            'Informe Técnico en el Momento'
         ],
         'promo_2x1': [
             '<span class="text-success fw-bold">✔ Incluye 2 inspecciones pre-compra</span>',
-            'Diagnóstico Electrónico Global',
-            'Prueba de compresión/motor',
-            'Inspección de pintura y chasis',
-            'Validación real de Kilometraje',
-            '<span class="text-warning fw-bold">Asesoría y Certificación</span>'
+            'Inspección Mecánica',
+            'Inspección Estética',
+            'Inspección Estructural',
+            'Scanner',
+            'Test de Batería',
+            'Validación de Kilometraje',
+            'Validación de VIN',
+            'Prueba de Ruta',
+            'Informe Técnico en el Momento'
         ]
     };
     
     // Mapping 
     if (plan === 'scanner') {
         planTitle = "Scanner Automotriz";
-        planPrice = "$35.000";
+        planPrice = "$25.000";
     } else if (plan === 'completa') {
         planTitle = "Inspección Pre Compra 360°";
-        planPrice = "$65.000";
+        planPrice = "$45.000";
     } else if (plan === 'promo_2x1') {
         planTitle = "Plan Dúo: 2 Inspecciones";
         planPrice = "$100.000";
@@ -57,11 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if(feat.includes('✔')) {
             let cleanFeat = feat.replace('<span class="text-success fw-bold">', '').replace('</span>', '');
-            featureHtml += `<li class="p-3 rounded-3 text-center mb-4 shadow-sm" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2);"><span class="fs-6" style="color: #10b981; font-weight: 600;">${cleanFeat}</span></li>`;
+            featureHtml += `<li class="p-3 rounded-3 text-center mb-4 shadow-sm" style="background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.25);"><span class="fs-6" style="color: #ef4444; font-weight: 600;">${cleanFeat}</span></li>`;
         } else {
             featureHtml += `<li class="d-flex align-items-center ${borderClass}">
-                                <div class="d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 24px; height: 24px; background: rgba(16, 185, 129, 0.15); border-radius: 6px;">
-                                    <i class="bi bi-check-lg" style="color: #10b981; font-size: 1.1rem; text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);"></i>
+                                <div class="d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 24px; height: 24px; background: rgba(220, 38, 38, 0.15); border-radius: 6px;">
+                                    <i class="bi bi-check-lg" style="color: #dc2626; font-size: 1.1rem; text-shadow: 0 0 8px rgba(220, 38, 38, 0.4);"></i>
                                 </div>
                                 <span class="text-light fw-medium" style="line-height: 1.4;">${feat}</span>
                             </li>`;

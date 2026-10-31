@@ -18,7 +18,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{% static 'landing/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'landing/css/styles.css' %}?v=4">
 </head>
 
 <body>
@@ -50,32 +50,52 @@
     </nav>
 
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero position-relative overflow-hidden">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
-        <div class="container">
+
+        <!-- Hero Wheel Stage: Rueda que emerge desde la derecha de la pantalla -->
+        <div class="hero-wheel-stage">
+            <div class="wheel-ambient-glow"></div>
+            <img src="{% static 'landing/images/hero_wheel.png' %}?v=4" alt="Rueda Deportiva QZ Motors" class="hero-wheel-cut">
+        </div>
+
+        <div class="container position-relative" style="z-index: 2;">
             <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <div class="hero-badge">
-                        <i class="bi bi-shield-check me-1"></i> Inspección a Domicilio
+                <div class="col-lg-7 col-xl-7">
+                    <div class="hero-kicker">
+                        <i class="bi bi-shield-check text-danger me-2"></i>
+                        <span>INSPECCIÓN PRECOMPRA A DOMICILIO</span>
                     </div>
-                    <h1>Conoce el estado real de tu próximo vehículo</h1>
-                    <p>Inspección técnica computarizada, estructural y legal en terreno. Compra con total seguridad y
-                        confianza con la inspección automotriz más completa.</p>
+                    <h1 class="hero-headline">
+                        QUE TU PRÓXIMO <span class="hero-red">AUTO</span><br>
+                        NO SEA UN <span class="hero-red">PROBLEMA.</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Revisamos motor, transmisión, chasis, kilometraje real y situación legal antes de que transfieras tu dinero. <strong>Evita comprar autos con fallas ocultas.</strong>
+                    </p>
                     <div class="d-flex flex-wrap gap-3 mt-4 animate-fade-up-1">
                         <a href="#precios" class="btn btn-brand">Solicitar Inspección <i
                                 class="bi bi-arrow-right ms-2"></i></a>
                         <a href="#servicios" class="btn btn-details px-4 py-3 rounded-3 fw-semibold"><i
                                 class="bi bi-info-circle me-2"></i>Ver Detalles</a>
                     </div>
-                    <div class="mt-5 d-flex align-items-center gap-4 text-secondary animate-fade-up-2">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-geo-alt-fill text-danger me-2 fs-5"></i>
-                            <span>Vamos a tu comuna</span>
+                </div>
+                <div class="col-12 mt-4 mt-lg-5 pt-lg-2">
+                    <div class="hero-trust-strip animate-fade-up-2">
+                        <div class="trust-item">
+                            <i class="bi bi-cpu text-danger"></i>
+                            <span>Diagnóstico General</span>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-clock-fill text-warning me-2 fs-5"></i>
-                            <span>Atención Rápida</span>
+                        <span class="trust-sep">&bull;</span>
+                        <div class="trust-item">
+                            <i class="bi bi-file-earmark-pdf text-danger"></i>
+                            <span>Informe Inmediato</span>
+                        </div>
+                        <span class="trust-sep">&bull;</span>
+                        <div class="trust-item">
+                            <i class="bi bi-geo-alt text-danger"></i>
+                            <span>Cobertura en Terreno</span>
                         </div>
                     </div>
                 </div>
@@ -93,64 +113,111 @@
             </div>
 
             <div class="row g-4 mt-4">
+                <!-- 01: Inspección mecánica -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="glass-card reveal-slide-up">
-                        <div class="icon-box">
-                            <i class="bi bi-cpu"></i>
-                        </div>
-                        <h4>Scanner Automotriz</h4>
-                        <p>Lectura de computadores del vehículo (ECU). Detectamos códigos de error ocultos en Motor,
-                            Caja, Airbags, ABS, e inconsistencias en el kilometraje real.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="glass-card reveal-slide-up">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">01</span>
                         <div class="icon-box">
                             <i class="bi bi-tools"></i>
                         </div>
-                        <h4>Inspección Estructural</h4>
-                        <p>Evaluación minuciosa de chasis, medición de espesor de pintura para detectar choques
-                            reparados o masilla, fugas de fluidos y estado de suspensión.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="glass-card reveal-slide-up">
-                        <div class="icon-box">
-                            <i class="bi bi-shield-lock"></i>
-                        </div>
-                        <h4>Análisis Legal Integral</h4>
-                        <p>Incluimos el certificado Autofact full: validamos dueños, estado de multas, SOAP, inspección
-                            técnica, encargo por robos, remates y prenda administrativa.</p>
+                        <h4>Inspección mecánica</h4>
+                        <p>Revisamos el funcionamiento de los principales componentes mecánicos y buscamos señales de desgaste o fugas.</p>
                     </div>
                 </div>
 
-                <!-- Nuevas adiciones: Kilometraje, VIN, Batería -->
+                <!-- 02: Inspección estética -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="glass-card reveal-slide-up">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">02</span>
+                        <div class="icon-box">
+                            <i class="bi bi-palette"></i>
+                        </div>
+                        <h4>Inspección estética</h4>
+                        <p>Medimos el espesor de la pintura y revisamos la carrocería, también el interior para identificar daños o detalles visibles y comprobar el buen funcionamiento de comandos integrados.</p>
+                    </div>
+                </div>
+
+                <!-- 03: Inspección estructural -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">03</span>
+                        <div class="icon-box">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4>Inspección estructural</h4>
+                        <p>Revisamos la estructura en busca de señales de golpes, reparaciones o deformaciones por impacto.</p>
+                    </div>
+                </div>
+
+                <!-- 04: Scanner -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">04</span>
+                        <div class="icon-box">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+                        <h4>Scanner</h4>
+                        <p>Leemos los códigos electrónicos para identificar alertas registradas y revisar el funcionamiento de los sistemas asociados.</p>
+                    </div>
+                </div>
+
+                <!-- 05: Test de batería -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">05</span>
+                        <div class="icon-box">
+                            <i class="bi bi-battery-charging"></i>
+                        </div>
+                        <h4>Test de batería</h4>
+                        <p>Evaluamos la condición de la batería con un equipo de diagnóstico y comprobamos su respuesta al arranque.</p>
+                    </div>
+                </div>
+
+                <!-- 06: Validación de kilometraje -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">06</span>
                         <div class="icon-box">
                             <i class="bi bi-speedometer2"></i>
                         </div>
-                        <h4>Validación de Kilometraje</h4>
-                        <p>En base a información dada por scanner e inspección visual de componentes de fricción.</p>
+                        <h4>Validación de kilometraje</h4>
+                        <p>Contrastamos el kilometraje indicado con los registros y señales disponibles para revisar su coherencia.</p>
                     </div>
                 </div>
+
+                <!-- 07: Validación de VIN -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="glass-card reveal-slide-up">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">07</span>
                         <div class="icon-box">
                             <i class="bi bi-upc-scan"></i>
                         </div>
                         <h4>Validación de VIN</h4>
-                        <p>Se valida mediante scanner, documentos y VIN físico en el chasis del vehículo.</p>
+                        <p>Verificamos que el VIN corresponda con el vehículo y la documentación disponible.</p>
                     </div>
                 </div>
+
+                <!-- 08: Prueba de ruta -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="glass-card reveal-slide-up">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">08</span>
                         <div class="icon-box">
-                            <i class="bi bi-battery-charging"></i>
+                            <i class="bi bi-car-front-fill"></i>
                         </div>
-                        <h4>Test de Batería</h4>
-                        <p>Evaluación del sistema eléctrico y batería, estado de carga, capacidad de arranque,
-                            diagnóstico del alternador y vida útil estimada.</p>
+                        <h4>Prueba de ruta</h4>
+                        <p>Probamos el vehículo en marcha para observar su respuesta, ruidos y comportamiento general.</p>
+                    </div>
+                </div>
+
+                <!-- 09: Informe técnico en el momento -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card reveal-slide-up position-relative overflow-hidden">
+                        <span class="card-bg-number">09</span>
+                        <div class="icon-box">
+                            <i class="bi bi-file-earmark-check"></i>
+                        </div>
+                        <h4>Informe técnico en el momento</h4>
+                        <p>Al finalizar la inspección, recibes un informe técnico claro con los hallazgos y observaciones.</p>
                     </div>
                 </div>
             </div>
@@ -164,7 +231,7 @@
                 <div class="hero-badge mb-3"><i class="bi bi-gear-wide-connected me-2"></i>Metodología</div>
                 <h2>Nuestro Proceso de Inspección</h2>
                 <div class="accent-line"></div>
-                <p>Una inspección estandarizada, clara y directa para brindarte total certeza.</p>
+                <p>Diagnóstico y análisis precompra para detectar fallas ocultas y conocer el estado real de tu próximo vehículo</p>
             </div>
 
             <div class="row g-4 mt-5 position-relative">
@@ -174,7 +241,7 @@
                     <div class="glass-card reveal-slide-up text-center h-100 process-card-container">
                         <div class="process-icon mb-4">1</div>
                         <h4 class="fw-bold mb-3">Reserva Eficiente</h4>
-                        <p class="text-secondary mb-0">Agendamos a través del sitio web o vía telefónica. Define el
+                        <p class="text-secondary mb-0">Agendamos a través del sitio web o vía WhatsApp. Define el
                             lugar en la ciudad y la fecha. Nos adaptamos a los tiempos para agilizar tu compra.</p>
                     </div>
                 </div>
@@ -182,9 +249,8 @@
                 <div class="col-md-4">
                     <div class="glass-card reveal-slide-up text-center h-100 process-card-container">
                         <div class="process-icon mb-4">2</div>
-                        <h4 class="fw-bold mb-3">Inspección Técnico-Mecánica</h4>
-                        <p class="text-secondary mb-0">Evaluamos 150 puntos: test con escáner avanzado, condición del
-                            chasis, motor, transmisión, pintura y sistemas de inyección, en el lugar designado.</p>
+                        <h4 class="fw-bold mb-3">Inspección Pre Compra</h4>
+                        <p class="text-secondary mb-0">Revisamos el estado mecánico, estético y estructural; escaneamos los sistemas, probamos la batería, validamos kilometraje y VIN, y realizamos una prueba de ruta para identificar posibles fallas antes de comprar.</p>
                     </div>
                 </div>
 
@@ -192,8 +258,7 @@
                     <div class="glass-card reveal-slide-up text-center h-100 process-card-container">
                         <div class="process-icon mb-4">3</div>
                         <h4 class="fw-bold mb-3">Informe Técnico</h4>
-                        <p class="text-secondary mb-0">El mismo día te proporcionamos un informe dictaminando el estado
-                            real del vehículo. Evitamos que te engañen y avalamos tu futura inversión.</p>
+                        <p class="text-secondary mb-0">Al terminar la inspección, nuestro sistema genera tu informe técnico al instante. Recibes los hallazgos y observaciones en el momento, sin esperas.</p>
                     </div>
                 </div>
             </div>
@@ -219,10 +284,7 @@
                                 class="bi bi-check2-circle text-brand fs-5 me-3"></i> 100% de objetividad e
                             imparcialidad en los datos</li>
                         <li class="mb-3 d-flex align-items-center"><i
-                                class="bi bi-check2-circle text-brand fs-5 me-3"></i> Entrega de informe final el mismo
-                            día</li>
-                        <li class="mb-3 d-flex align-items-center"><i
-                                class="bi bi-check2-circle text-brand fs-5 me-3"></i> Más de 3000 vehículos inspeccionados</li>
+                                class="bi bi-check2-circle text-brand fs-5 me-3"></i> Informe técnico al momento</li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
@@ -260,7 +322,7 @@
                         class="glass-card pricing-card h-100 p-5 d-flex flex-column text-center position-relative border">
                         <h3 class="fw-bold mb-1">Scanner</h3>
                         <p class="text-secondary mb-4">Solo lectura de códigos</p>
-                        <h2 class="display-4 fw-bold text-brand mb-4">$35.000<span
+                        <h2 class="display-4 fw-bold text-brand mb-4">$25.000<span
                                 class="fs-5 text-secondary fw-normal ms-1">CLP</span></h2>
                         <ul class="list-unstyled text-start mb-5 flex-grow-1">
                             <li class="mb-3"><i class="bi bi-check-circle-fill text-brand me-2"></i> Diagnóstico
@@ -298,24 +360,25 @@
                         <div class="glass-card pricing-card flex-grow-1 p-5 d-flex flex-column text-center position-relative"
                             style="background: #09090b !important; border: 1.5px solid var(--brand-color) !important; border-radius: 20px;">
                             <h3 class="fw-bold mb-1">Inspección Pre Compra</h3>
-                            <p class="text-secondary mb-4">Análisis 360° del vehículo</p>
-                            <h2 class="display-4 fw-bold text-brand mb-4">$65.000<span
-                                    class="fs-5 text-secondary fw-normal ms-1">CLP</span></h2>
-                            <ul class="list-unstyled text-start mb-5 flex-grow-1">
-                                <li class="mb-3"><i class="bi bi-check-circle-fill text-brand me-2"></i> Diagnóstico
-                                    Electrónico Global</li>
-                                <li class="mb-3"><i class="bi bi-check-circle-fill text-brand me-2"></i> Prueba de
-                                    compresión/motor</li>
-                                <li class="mb-3"><i class="bi bi-check-circle-fill text-brand me-2"></i> Revisión de
-                                    pintura y chasis</li>
-                                <li class="mb-3"><i class="bi bi-check-circle-fill text-brand me-2"></i> Validación real
-                                    de Kilometraje</li>
-                                <li class="mb-3 fw-bold text-white"><i class="bi bi-star-fill text-warning me-2"></i>
-                                    Asesoría y Certificación</li>
+                            <p class="text-secondary mb-3">Análisis 360° del vehículo</p>
+                            <div class="mb-4">
+                                <span class="text-secondary text-decoration-line-through fs-5 fw-normal d-block mb-1">$65.000 CLP</span>
+                                <h2 class="display-4 fw-bold text-brand m-0">$45.000<span
+                                        class="fs-5 text-secondary fw-normal ms-1">CLP</span></h2>
+                            </div>
+                            <ul class="list-unstyled text-start mb-4 flex-grow-1">
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Inspección Mecánica</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Inspección Estética</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Inspección Estructural</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Scanner</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Test de Batería</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Validación de Kilometraje</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Validación de VIN</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Prueba de Ruta</li>
+                                <li class="mb-2"><i class="bi bi-check-circle-fill text-brand me-2"></i> Informe Técnico en el Momento</li>
                             </ul>
-                            <button type="button"
-                                class="btn btn-brand w-100 py-3 rounded-3 fw-bold form-alert-shadow mt-auto"
-                                data-bs-toggle="modal" data-bs-target="#promoModal">Continuar</button>
+                            <a href="{% url 'checkout' %}?plan=completa"
+                                class="btn btn-brand w-100 py-3 rounded-3 fw-bold form-alert-shadow mt-auto text-decoration-none">Continuar</a>
                         </div>
                     </div>
                 </div>
@@ -509,7 +572,7 @@
                         <a href="{% url 'checkout' %}?plan=promo_2x1"
                             class="btn btn-brand py-3 fw-bold fs-5 shadow-sm">Sí, quiero el Plan Dúo ($100.000)</a>
                         <a href="{% url 'checkout' %}?plan=completa"
-                            class="btn btn-light py-3 fw-bold text-dark border-secondary-subtle">No gracias, continuar con 1 inspección ($65.000)</a>
+                            class="btn btn-light py-3 fw-bold text-dark border-secondary-subtle">No gracias, continuar con 1 inspección ($45.000)</a>
                     </div>
                 </div>
             </div>
