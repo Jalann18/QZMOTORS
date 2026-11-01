@@ -10,9 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Feature Lists matching index.html
     const features = {
         'scanner': [
-            'Diagnóstico Electrónico',
-            'Lectura de fallas ECU',
-            'Informe Técnico digital'
+            'Scanner Automotriz',
+            'Lectura de códigos de error'
         ],
         'completa': [
             'Inspección Mecánica',
